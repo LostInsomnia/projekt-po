@@ -17,11 +17,15 @@ public class Window extends JFrame {
 		
 		this.setMinimumSize(new Dimension(800,600));
 		this.setSize(800,600);
+		TopPanel topPanel = new TopPanel();
+		this.add(topPanel, BorderLayout.PAGE_START);
 		
+		MenuBar menuBar = new MenuBar();
+		this.setJMenuBar(menuBar);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		this.setLayout(new BorderLayout(10,10));
-		
+		//this.setLayout(new BorderLayout(10,10));
+		/*
 		JPanel frame = new JPanel();
 		this.add(frame);
 		
@@ -59,18 +63,21 @@ public class Window extends JFrame {
 		
 		
 		frame.add(buttonPanel, BorderLayout.PAGE_END);
+		*/
+		ParamPanel paramPanel = new ParamPanel();
+		this.add(paramPanel, BorderLayout.LINE_START);
+		ResultsPanel resultsPanel = new ResultsPanel();
+		this.add(resultsPanel, BorderLayout.LINE_END);
+		//JPanel paramPanel = new JPanel();
+		//paramPanel.setBackground(Color.GRAY);
+		//frame.add(paramPanel, BorderLayout.LINE_END);
 		
-		JPanel paramPanel = new JPanel();
-		paramPanel.setBackground(Color.GRAY);
-		frame.add(paramPanel, BorderLayout.LINE_END);
 		}
 	
 	public static void main(String[] args) {
 		
-		Window window = new Window();
-		
+		Window window = new Window();	
 		window.setVisible(true);
-
 	}
 
 }

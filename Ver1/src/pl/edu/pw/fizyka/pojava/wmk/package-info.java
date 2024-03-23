@@ -1,1 +1,0 @@
-package pl.edu.pw.fizyka.pojava.wmk;
