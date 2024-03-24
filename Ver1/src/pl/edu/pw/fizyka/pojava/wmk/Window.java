@@ -20,7 +20,7 @@ public class Window extends JFrame {
 		TopPanel topPanel = new TopPanel();
 		this.add(topPanel, BorderLayout.PAGE_START);
 		
-		MenuBar menuBar = new MenuBar();
+		TopMenuBar menuBar = new TopMenuBar();
 		this.setJMenuBar(menuBar);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
