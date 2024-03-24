@@ -14,8 +14,9 @@ public class TopPanel extends JPanel {
 		this.add(addAnchor);
 		JButton colorMode = new JButton("dark/light");
 		this.add(colorMode);
-		JButton language = new JButton("change language");
-		this.add(language);
+		//JButton language = new JButton("change language");
+		LanguageButton languageChangeButton = new LanguageButton();
+		this.add(languageChangeButton);
 	}
 	
 }
