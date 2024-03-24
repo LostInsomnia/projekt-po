@@ -1,15 +1,9 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.CompoundBorder;
 
 public class Window extends JFrame {
 
@@ -72,6 +66,11 @@ public class Window extends JFrame {
 		//paramPanel.setBackground(Color.GRAY);
 		//frame.add(paramPanel, BorderLayout.LINE_END);
 		
+		DrawspacePanel drawspace = new DrawspacePanel();
+		this.add(drawspace, BorderLayout.CENTER);
+		
+		BotPanel buttonPanel = new BotPanel();
+		this.add(buttonPanel, BorderLayout.PAGE_END);
 		}
 	
 	public static void main(String[] args) {

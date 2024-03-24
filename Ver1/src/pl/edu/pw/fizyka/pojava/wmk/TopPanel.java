@@ -7,11 +7,8 @@ import javax.swing.JPanel;
 
 public class TopPanel extends JPanel {
 	TopPanel(){
-		this.setLayout(new FlowLayout());
-		JButton addPoint = new JButton("add point");
-		this.add(addPoint);
-		JButton addAnchor = new JButton("add Anchor");
-		this.add(addAnchor);
+		this.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
 		JButton colorMode = new JButton("dark/light");
 		this.add(colorMode);
 		//JButton language = new JButton("change language");
