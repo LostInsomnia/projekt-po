@@ -11,6 +11,9 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+//Made by: Adam Pempkowiak, 
+//Small changes: Kacper Szymczak
+
 public class LanguageButton extends JButton implements ActionListener{
 	int n=0;
 	LanguageButton(){

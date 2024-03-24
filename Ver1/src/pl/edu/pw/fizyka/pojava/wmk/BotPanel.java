@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+//Made by: Kacper Szymczak
+
 public class BotPanel extends JPanel {
 
 	public BotPanel() {

@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+//Made by: Kacper Szymczak
+
 public class DrawspacePanel extends JPanel {
 
 	public DrawspacePanel() {

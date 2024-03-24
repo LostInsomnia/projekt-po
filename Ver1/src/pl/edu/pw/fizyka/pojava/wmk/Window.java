@@ -5,6 +5,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+//Made by: Adam Pempkowiak, Kacper Szymczak
+
 public class Window extends JFrame {
 
 	public Window() {
