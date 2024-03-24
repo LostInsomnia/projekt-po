@@ -6,8 +6,17 @@ import javax.swing.JPanel;
 //Made by: Adam Pempkowiak
 
 public class ResultsPanel extends JPanel{
+	JButton calculateResultsButton;
+public void changeResultColor() {
+		
+
+		this.setBackground(ColorScheme.getColorScheme()[0]);
+		calculateResultsButton.setBackground(ColorScheme.getColorScheme()[3]);
+		revalidate();
+	}
+	
 	public ResultsPanel(){
-		JButton calculateResultsButton = new JButton("calculate");
+		 calculateResultsButton = new JButton("calculate");
 		this.add(calculateResultsButton);
 	}
 }

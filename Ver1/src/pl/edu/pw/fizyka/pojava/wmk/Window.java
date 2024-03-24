@@ -1,14 +1,15 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-//Made by: Adam Pempkowiak, Kacper Szymczak
-
 public class Window extends JFrame {
-
+	DrawspacePanel drawspace;
 	public Window() {
 		
 		this.setMinimumSize(new Dimension(800,600));
@@ -68,11 +69,36 @@ public class Window extends JFrame {
 		//paramPanel.setBackground(Color.GRAY);
 		//frame.add(paramPanel, BorderLayout.LINE_END);
 		
-		DrawspacePanel drawspace = new DrawspacePanel();
+		 drawspace = new DrawspacePanel();
 		this.add(drawspace, BorderLayout.CENTER);
 		
 		BotPanel buttonPanel = new BotPanel();
 		this.add(buttonPanel, BorderLayout.PAGE_END);
+		
+		DarkModeButton colorMode = new DarkModeButton();
+		topPanel.add(colorMode);
+		colorMode.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Color buttonColor = new Color(80,80,80);
+				if(colorMode.darkmode) {
+					colorMode.darkmode = false;
+					ColorScheme.setColorScheme(new Color[]{Color.LIGHT_GRAY, Color.WHITE, Color.black, Color.GRAY} );
+				}
+				else {
+					colorMode. darkmode = true;
+					ColorScheme.setColorScheme(new Color[]{Color.DARK_GRAY, Color.LIGHT_GRAY, Color.WHITE, buttonColor});
+					 
+			}
+				drawspace.changeDrawspaceColor();
+				topPanel.changeTopPanelColor();
+				paramPanel.changeParamColor();
+				resultsPanel.changeResultColor();
+				buttonPanel.changeBotColor();
+				colorMode.setBackground(ColorScheme.getColorScheme()[0]);
+
+			}});
+		
 		}
 	
 	public static void main(String[] args) {

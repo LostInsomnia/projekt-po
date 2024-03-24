@@ -15,7 +15,7 @@ import javax.swing.JButton;
 //Small changes: Kacper Szymczak
 
 public class LanguageButton extends JButton implements ActionListener{
-	int n=0;
+	boolean state = true;
 	LanguageButton(){
 		 this.addActionListener(this);
 		 this.setMargin(new Insets(0, 0, 0, 0));
@@ -30,10 +30,12 @@ public class LanguageButton extends JButton implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) { 
-	     if(n%2 == 0) {
+	     if(state) {
 	    	 try {
 				    Image img = ImageIO.read(getClass().getResource("images/greatbrittain_icon.jpeg"));
 				    this.setIcon(new ImageIcon(img));
+				    state = false;
+				    
 				  } catch (Exception ex) {
 				    System.out.println(ex);
 				  }
@@ -42,10 +44,12 @@ public class LanguageButton extends JButton implements ActionListener{
 	    	 try {
 				    Image img = ImageIO.read(getClass().getResource("images/poland_icon.jpeg"));
 				    this.setIcon(new ImageIcon(img));
+				    state = true;
+				    
 				  } catch (Exception ex) {
 				    System.out.println(ex);
 				  }
 	     }
-	    n++;
+	   
 	}
 }

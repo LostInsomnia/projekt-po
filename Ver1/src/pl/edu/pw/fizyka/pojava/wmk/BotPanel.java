@@ -8,6 +8,13 @@ import javax.swing.JPanel;
 //Made by: Kacper Szymczak
 
 public class BotPanel extends JPanel {
+	
+public void changeBotColor() {
+		
+
+		this.setBackground(ColorScheme.getColorScheme()[0]);
+		revalidate();
+	}
 
 	public BotPanel() {
 		this.setLayout(new FlowLayout());
