@@ -4,6 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+//Made by: Adam Pempkowiak
 public class TopMenuBar extends JMenuBar{
 	public TopMenuBar(){
 		JMenu menu = new JMenu("Options");
