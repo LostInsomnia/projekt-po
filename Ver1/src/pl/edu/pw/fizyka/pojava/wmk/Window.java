@@ -20,6 +20,8 @@ public class Window extends JFrame {
 		this.setJMenuBar(menuBar);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
+		AnchorPointList anchorPointList = new AnchorPointList();
+		
 		//this.setLayout(new BorderLayout(10,10));
 		/*
 		JPanel frame = new JPanel();
@@ -68,10 +70,10 @@ public class Window extends JFrame {
 		//paramPanel.setBackground(Color.GRAY);
 		//frame.add(paramPanel, BorderLayout.LINE_END);
 		
-		DrawspacePanel drawspace = new DrawspacePanel();
+		DrawspacePanel drawspace = new DrawspacePanel(anchorPointList);
 		this.add(drawspace, BorderLayout.CENTER);
 		
-		BotPanel buttonPanel = new BotPanel();
+		BotPanel buttonPanel = new BotPanel(drawspace);
 		this.add(buttonPanel, BorderLayout.PAGE_END);
 		}
 	

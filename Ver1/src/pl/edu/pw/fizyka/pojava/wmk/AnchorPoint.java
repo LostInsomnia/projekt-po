@@ -5,9 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JButton;
-
+//Made by: Adam Pempkowiak
 public class AnchorPoint extends JButton{
 	protected int x, y;
+	protected float breakingStrength = 20;		// in kN
 	public AnchorPoint(int x, int y) {
 		this.x =x;
 		this.y =y;
@@ -37,4 +38,29 @@ public class AnchorPoint extends JButton{
 		    g.fillOval(0, 0, getSize().width-1, getSize().height-1);
 		    super.paintComponent(g);
 	  }
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public float getBreakingStrength() {
+		return breakingStrength;
+	}
+
+	public void setBreakingStrength(float breakingStrength) {
+		this.breakingStrength = breakingStrength;
+	}
+	 
 }
