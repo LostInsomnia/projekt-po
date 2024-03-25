@@ -2,6 +2,8 @@ package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.Color;
 
+//Made by: Kacper Szymczak
+
 public class ColorScheme {
 	//Didn't work through DarkModeButton
 	
@@ -17,7 +19,6 @@ public class ColorScheme {
 		 secondaryColor = colorSet[1];
 		 textColor = colorSet[2];
 		 buttonColor = colorSet[3];
-		 System.out.println(buttonColor);
 	 }
 	 
 	 public static Color[] getColorScheme() {
@@ -25,7 +26,6 @@ public class ColorScheme {
 		 return colorSet;
 	 }
 	public ColorScheme() {
-		// TODO Auto-generated constructor stub
 	}
 
 }

@@ -15,14 +15,14 @@ import javax.swing.JButton;
 //Small changes: Kacper Szymczak
 
 public class LanguageButton extends JButton implements ActionListener{
-	int n=0;
+	boolean poland = true;
 	LanguageButton(){
 		 this.addActionListener(this);
 		 this.setMargin(new Insets(0, 0, 0, 0));
 		 this.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		 try {
-			    Image img = ImageIO.read(getClass().getResource("images/poland_icon.jpeg"));
+			    Image img = ImageIO.read(getClass().getResource("images/poland_selected.png"));
 			    this.setIcon(new ImageIcon(img));
 			  } catch (Exception ex) {
 			    System.out.println(ex);
@@ -30,22 +30,23 @@ public class LanguageButton extends JButton implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) { 
-	     if(n%2 == 0) {
+	     if(poland) {
 	    	 try {
-				    Image img = ImageIO.read(getClass().getResource("images/greatbrittain_icon.jpeg"));
+				    Image img = ImageIO.read(getClass().getResource("images/greatbrittain_selected.jpeg"));
 				    this.setIcon(new ImageIcon(img));
+				    poland = false;
 				  } catch (Exception ex) {
 				    System.out.println(ex);
 				  }
 	     }
 	     else {
 	    	 try {
-				    Image img = ImageIO.read(getClass().getResource("images/poland_icon.jpeg"));
+				    Image img = ImageIO.read(getClass().getResource("images/poland_selected.png"));
 				    this.setIcon(new ImageIcon(img));
+				    poland = true;
 				  } catch (Exception ex) {
 				    System.out.println(ex);
 				  }
 	     }
-	    n++;
 	}
 }
