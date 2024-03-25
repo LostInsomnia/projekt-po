@@ -8,7 +8,7 @@ import javax.swing.JButton;
 //Made by: Adam Pempkowiak
 //Color change: Kacper Szymczak
 public class AnchorPoint extends JButton{
-	Color currentColor = Color.LIGHT_GRAY;
+	Color currentColor = ColorScheme.getColorScheme()[3];
 	public void changePointColor(){
 		/*
 		 0 - Main Color

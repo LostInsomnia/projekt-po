@@ -68,6 +68,18 @@ public void changeBotColor() {
 		};
 		addPoint.addActionListener(addPointPressed);
 		
+		ActionListener clearDrawspace = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				AnchorPointList.clearList();
+				drawspace.removeAll();
+				drawspace.repaint();
+				drawspace.revalidate();
+			}
+		};
+		clear.addActionListener(clearDrawspace);
+		
+		
 	}
 
 
