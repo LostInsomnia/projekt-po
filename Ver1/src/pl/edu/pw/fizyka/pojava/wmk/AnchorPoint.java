@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JButton;
 //Made by: Adam Pempkowiak
+//Color change: Kacper Szymczak
 public class AnchorPoint extends JButton{
 	Color currentColor = Color.LIGHT_GRAY;
 	public void changePointColor(){
