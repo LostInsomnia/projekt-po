@@ -84,14 +84,13 @@ public class Window extends JFrame {
 		colorMode.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Color buttonColor = new Color(80,80,80);
 				if(colorMode.darkmode) {
 					colorMode.darkmode = false;
 					ColorScheme.setColorScheme(new Color[]{Color.LIGHT_GRAY, Color.WHITE, Color.black, Color.GRAY} );
 				}
 				else {
 					colorMode. darkmode = true;
-					ColorScheme.setColorScheme(new Color[]{Color.DARK_GRAY, Color.LIGHT_GRAY, Color.WHITE, buttonColor});
+					ColorScheme.setColorScheme(new Color[]{Color.DARK_GRAY, Color.LIGHT_GRAY, Color.WHITE, ColorScheme.customButtonColor});
 					 
 			}
 				drawspace.changeDrawspaceColor();
@@ -101,8 +100,19 @@ public class Window extends JFrame {
 				buttonPanel.changeBotColor();
 				colorMode.setBackground(ColorScheme.getColorScheme()[0]);
 				menuBar.changeMenuColor();
+				anchorPointList.changeAllPoints();
+
 
 			}});
+		//set initial colors
+		drawspace.changeDrawspaceColor();
+		topPanel.changeTopPanelColor();
+		paramPanel.changeParamColor();
+		resultsPanel.changeResultColor();
+		buttonPanel.changeBotColor();
+		colorMode.setBackground(ColorScheme.getColorScheme()[0]);
+		menuBar.changeMenuColor();
+		anchorPointList.changeAllPoints();
 		}
 	
 	public static void main(String[] args) {

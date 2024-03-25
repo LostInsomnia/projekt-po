@@ -9,7 +9,7 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-//Made by: Kacper Szymczak
+//Made by: Kacper Szymczak, Adam Pempkowiak
 
 public class DrawspacePanel extends JPanel implements MouseMotionListener, MouseListener{
 	
@@ -22,6 +22,7 @@ public void changeDrawspaceColor() {
 	 */
 
 		this.setBackground(ColorScheme.getColorScheme()[1]);
+		
 		revalidate();
 	}
 

@@ -4,11 +4,13 @@ import java.awt.Color;
 
 public class ColorScheme {
 	//Didn't work through DarkModeButton
+	
+	 static Color customButtonColor = new Color(80,80,80);
 
-	 static Color mainColor = Color.DARK_GRAY;
-	 static Color secondaryColor = Color.LIGHT_GRAY;
-	 static Color textColor = Color.white;
-	 static Color buttonColor = Color.gray;
+	 static Color mainColor = Color.LIGHT_GRAY;
+	 static Color secondaryColor = Color.WHITE;
+	 static Color textColor = Color.BLACK;
+	 static Color buttonColor = Color.GRAY;
 	 
 	 public static void setColorScheme(Color[] colorSet) {
 		 mainColor = colorSet[0];

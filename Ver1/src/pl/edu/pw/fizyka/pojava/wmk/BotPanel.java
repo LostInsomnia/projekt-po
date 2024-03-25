@@ -13,6 +13,7 @@ public class BotPanel extends JPanel {
 	JButton addPoint;
 	JButton addAnchor;
 	JButton startSim;
+	JButton clear;
 	
 public void changeBotColor() {
 		
@@ -33,6 +34,9 @@ public void changeBotColor() {
 		
 		startSim.setBackground(ColorScheme.getColorScheme()[3]);
 		startSim.setForeground(ColorScheme.getColorScheme()[2]);
+		
+		clear.setBackground(ColorScheme.getColorScheme()[3]);
+		clear.setForeground(ColorScheme.getColorScheme()[2]);
 		revalidate();
 	}
 	
@@ -51,6 +55,8 @@ public void changeBotColor() {
 		this.add(addPoint);
 		addAnchor = new JButton("add Anchor");
 		this.add(addAnchor);
+		clear = new JButton("Clear screen");
+		this.add(clear);
 		startSim = new JButton("Simulate");
 		this.add(startSim);
 		

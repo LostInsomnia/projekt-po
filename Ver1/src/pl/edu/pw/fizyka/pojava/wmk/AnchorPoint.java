@@ -7,7 +7,21 @@ import java.awt.Graphics;
 import javax.swing.JButton;
 //Made by: Adam Pempkowiak
 public class AnchorPoint extends JButton{
+	Color currentColor = Color.LIGHT_GRAY;
+	public void changePointColor(){
+		/*
+		 0 - Main Color
+		 1 - Secondary Color
+		 2 - Text Color
+		 3 - Button Color
+		 */
+		currentColor = ColorScheme.getColorScheme()[3];
+		repaint();
+		revalidate();
+		
+	}
 	protected int x, y;
+	
 	protected float breakingStrength = 20;		// in kN
 	public AnchorPoint(int x, int y) {
 		this.x =x;
@@ -34,7 +48,7 @@ public class AnchorPoint extends JButton{
 		      g.setColor(getBackground());
 		    }
 		    */
-		    g.setColor(Color.lightGray);
+		    g.setColor(currentColor);
 		    g.fillOval(0, 0, getSize().width-1, getSize().height-1);
 		    super.paintComponent(g);
 	  }

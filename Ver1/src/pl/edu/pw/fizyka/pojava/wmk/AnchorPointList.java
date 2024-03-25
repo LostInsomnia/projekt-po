@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Made by: Adam Pempkowiak, 
+//Color change: Kacper Szymczak
 public class AnchorPointList {
 	List <AnchorPoint> anchorPointList = new ArrayList<>();
 	public AnchorPointList() {
@@ -17,5 +18,11 @@ public class AnchorPointList {
 	}
 	public void addAnchorPointToAnchorPointList(AnchorPoint anchorPoint) {
 		anchorPointList.add(anchorPoint);		
+	}
+	public void changeAllPoints() {
+		for(int i = 0; i<anchorPointList.size(); i++) {
+			anchorPointList.get(i).changePointColor();
+		}
+		
 	}
 }
