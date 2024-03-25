@@ -1,7 +1,10 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
@@ -75,6 +78,31 @@ public class Window extends JFrame {
 		
 		BotPanel buttonPanel = new BotPanel(drawspace);
 		this.add(buttonPanel, BorderLayout.PAGE_END);
+		
+		DarkModeButton colorMode = new DarkModeButton();
+		topPanel.add(colorMode);
+		colorMode.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Color buttonColor = new Color(80,80,80);
+				if(colorMode.darkmode) {
+					colorMode.darkmode = false;
+					ColorScheme.setColorScheme(new Color[]{Color.LIGHT_GRAY, Color.WHITE, Color.black, Color.GRAY} );
+				}
+				else {
+					colorMode. darkmode = true;
+					ColorScheme.setColorScheme(new Color[]{Color.DARK_GRAY, Color.LIGHT_GRAY, Color.WHITE, buttonColor});
+					 
+			}
+				drawspace.changeDrawspaceColor();
+				topPanel.changeTopPanelColor();
+				paramPanel.changeParamColor();
+				resultsPanel.changeResultColor();
+				buttonPanel.changeBotColor();
+				colorMode.setBackground(ColorScheme.getColorScheme()[0]);
+				menuBar.changeMenuColor();
+
+			}});
 		}
 	
 	public static void main(String[] args) {

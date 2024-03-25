@@ -12,6 +12,18 @@ import javax.swing.JPanel;
 //Made by: Kacper Szymczak
 
 public class DrawspacePanel extends JPanel implements MouseMotionListener, MouseListener{
+	
+public void changeDrawspaceColor() {
+	/*
+	 0 - Main Color
+	 1 - Secondary Color
+	 2 - Text Color
+	 3 - Button Color
+	 */
+
+		this.setBackground(ColorScheme.getColorScheme()[1]);
+		revalidate();
+	}
 
 	Boolean addAnchorPointSelected = false;
 	AnchorPointList anchorPointList; 

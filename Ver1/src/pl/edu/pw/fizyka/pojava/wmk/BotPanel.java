@@ -10,23 +10,48 @@ import javax.swing.JPanel;
 //Made by: Kacper Szymczak
 
 public class BotPanel extends JPanel {
+	JButton addPoint;
+	JButton addAnchor;
+	JButton startSim;
+	
+public void changeBotColor() {
+		
+	/*
+	 0 - Main Color
+	 1 - Secondary Color
+	 2 - Text Color
+	 3 - Button Color
+	 */
+
+		this.setBackground(ColorScheme.getColorScheme()[0]);
+		
+		addPoint.setBackground(ColorScheme.getColorScheme()[3]);
+		addPoint.setForeground(ColorScheme.getColorScheme()[2]);
+		
+		addAnchor.setBackground(ColorScheme.getColorScheme()[3]);
+		addAnchor.setForeground(ColorScheme.getColorScheme()[2]);
+		
+		startSim.setBackground(ColorScheme.getColorScheme()[3]);
+		startSim.setForeground(ColorScheme.getColorScheme()[2]);
+		revalidate();
+	}
 	
 	public BotPanel() {
 		this.setLayout(new FlowLayout());
-		JButton addPoint = new JButton("add point");
+		addPoint = new JButton("add point");
 		this.add(addPoint);
-		JButton addAnchor = new JButton("add Anchor");
+		addAnchor = new JButton("add Anchor");
 		this.add(addAnchor);
-		JButton startSim = new JButton("Simulate");
+		startSim = new JButton("Simulate");
 		this.add(startSim);
 	}
 	public BotPanel(DrawspacePanel drawspace) {
 		this.setLayout(new FlowLayout());
-		JButton addPoint = new JButton("add point");
+		addPoint = new JButton("add point");
 		this.add(addPoint);
-		JButton addAnchor = new JButton("add Anchor");
+		addAnchor = new JButton("add Anchor");
 		this.add(addAnchor);
-		JButton startSim = new JButton("Simulate");
+		startSim = new JButton("Simulate");
 		this.add(startSim);
 		
 		ActionListener addPointPressed = new ActionListener() {
