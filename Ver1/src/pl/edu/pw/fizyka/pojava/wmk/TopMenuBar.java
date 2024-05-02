@@ -1,5 +1,8 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -9,6 +12,7 @@ public class TopMenuBar extends JMenuBar{
 	JMenu menu;
 	JMenuItem importData;
 	JMenuItem exportData;
+	JMenuItem authorInfo;
 	public void changeMenuColor() {
 		/*
 		 0 - Main Color
@@ -28,6 +32,9 @@ public class TopMenuBar extends JMenuBar{
 		exportData.setBackground(ColorScheme.getColorScheme()[3]);
 		exportData.setForeground(ColorScheme.getColorScheme()[2]);
 		
+		authorInfo.setBackground(ColorScheme.getColorScheme()[3]);
+		authorInfo.setForeground(ColorScheme.getColorScheme()[2]);
+		
 		revalidate();
 	}
 	public TopMenuBar(){
@@ -35,9 +42,21 @@ public class TopMenuBar extends JMenuBar{
 		this.add(menu);
 		importData = new JMenuItem("import data");
 		exportData = new JMenuItem("save data");
-		
+		authorInfo = new JMenuItem("author info");
+		ActionListener authorInfoListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new AuthorInfoWindow().setVisible(true);
+			}
+			
+		};
+		authorInfo.addActionListener(authorInfoListener);
 		menu.add(importData);
 		menu.addSeparator();
 		menu.add(exportData);
+		menu.addSeparator();
+		menu.add(authorInfo);
 	}
 }

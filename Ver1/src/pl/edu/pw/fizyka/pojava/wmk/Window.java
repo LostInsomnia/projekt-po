@@ -21,7 +21,7 @@ public class Window extends JFrame {
 		
 		TopMenuBar menuBar = new TopMenuBar();
 		this.setJMenuBar(menuBar);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		AnchorPointList anchorPointList = new AnchorPointList();
 		
