@@ -3,10 +3,13 @@ package pl.edu.pw.fizyka.pojava.wmk;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+
+import lab6zad2.MainClass;
 
 //Made by: Adam Pempkowiak, Kacper Szymczak
 
@@ -71,12 +74,23 @@ public class Window extends JFrame {
 		colorMode.setBackground(ColorScheme.getColorScheme()[0]);
 		menuBar.changeMenuColor();
 		anchorPointList.changeAllPoints();
+		
+		LanguageChange languageChange = new LanguageChange();
+		resultsPanel.setLanguageChange(languageChange);
+		topPanel.setLanguageChange(languageChange);
 		}
 	
 	public static void main(String[] args) {
 		
-		Window window = new Window();	
-		window.setVisible(true);
+		EventQueue.invokeLater (new Runnable(){
+			 public void run() {
+				Window window = new Window();	
+				window.setVisible(true);
+			 }
+			 });
+		
+		
+		
 	}
 
 }

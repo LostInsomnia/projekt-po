@@ -7,7 +7,8 @@ import javax.swing.JPanel;
 //Made by: Adam Pempkowiak
 //Small changes: Kacper Szymczak
 public class TopPanel extends JPanel {
-	
+	LanguageChange languageChange;
+	LanguageButton languageChangeButton;
 public void changeTopPanelColor() {
 	/*
 	 0 - Main Color
@@ -23,8 +24,12 @@ public void changeTopPanelColor() {
 		this.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		//JButton language = new JButton("change language");
-		LanguageButton languageChangeButton = new LanguageButton();
+		languageChangeButton = new LanguageButton();
+		
 		this.add(languageChangeButton);
+	}
+	public void setLanguageChange(LanguageChange languageChange) {
+		languageChangeButton.setLanguageChange(languageChange);
 	}
 	
 }

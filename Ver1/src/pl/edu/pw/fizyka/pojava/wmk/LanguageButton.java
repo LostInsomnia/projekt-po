@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -16,7 +17,9 @@ import javax.swing.JButton;
 
 public class LanguageButton extends JButton implements ActionListener{
 	boolean poland = true;
+	LanguageChange languageChange;
 	LanguageButton(){
+		 //this.languageChange = languageChange;
 		 this.addActionListener(this);
 		 this.setMargin(new Insets(0, 0, 0, 0));
 		 this.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -31,6 +34,7 @@ public class LanguageButton extends JButton implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) { 
 	     if(poland) {
+	    	 languageChange.updateLanguageChoice(new Locale("pl","PL"));
 	    	 try {
 				    Image img = ImageIO.read(getClass().getResource("images/greatbrittain_selected.jpeg"));
 				    this.setIcon(new ImageIcon(img));
@@ -40,6 +44,7 @@ public class LanguageButton extends JButton implements ActionListener{
 				  }
 	     }
 	     else {
+	    	 languageChange.updateLanguageChoice(new Locale("en","US"));
 	    	 try {
 				    Image img = ImageIO.read(getClass().getResource("images/poland_selected.png"));
 				    this.setIcon(new ImageIcon(img));
@@ -48,5 +53,9 @@ public class LanguageButton extends JButton implements ActionListener{
 				    System.out.println(ex);
 				  }
 	     }
+	}
+
+	public void setLanguageChange(LanguageChange languageChange) {
+		this.languageChange = languageChange;
 	}
 }
