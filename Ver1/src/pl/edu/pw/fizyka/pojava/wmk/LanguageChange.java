@@ -25,4 +25,7 @@ public class LanguageChange {
 		botPanel.updateLanguageChoice(locale);
 		topMenuBar.updateLanguageChoice(locale);
 	}
+	public Locale getLocale() {
+		return locale;
+	}
 }

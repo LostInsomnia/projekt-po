@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 //Made by: Adam Pempkowiak, Kacper Szymczak
 public class TopMenuBar extends JMenuBar{
 	JMenu menu;
+	Locale locale;
 	JMenuItem importData;
 	JMenuItem exportData;
 	JMenuItem authorInfo;
@@ -47,6 +48,7 @@ public class TopMenuBar extends JMenuBar{
 	
 	public void updateLanguageChoice(Locale locale) {
 		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
+		this.locale = locale;
 		importData.setText(messages.getString("importDataItemMessage"));
 		exportData.setText(messages.getString("exportDataItemMessage"));
 		authorInfo.setText(messages.getString("authorInfoItemMessage"));
@@ -65,7 +67,7 @@ public class TopMenuBar extends JMenuBar{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new AuthorInfoWindow().setVisible(true);
+				new AuthorInfoWindow(locale).setVisible(true);
 			}
 			
 		};
