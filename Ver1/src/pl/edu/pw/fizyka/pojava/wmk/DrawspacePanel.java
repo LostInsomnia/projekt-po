@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 //Made by: Kacper Szymczak, Adam Pempkowiak
@@ -29,6 +30,7 @@ public void changeDrawspaceColor() {
 	Boolean addAnchorPointSelected = false;
 	AnchorPointList anchorPointList; 
 	public DrawspacePanel() {
+		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400,300));
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), BorderFactory.createEmptyBorder(5, 10, 5, 10)));
 		//this.setLayout(null);				// jak by coś nie działało z punktami stanowiska to pewnie chodzi o tą linijke
@@ -38,16 +40,18 @@ public void changeDrawspaceColor() {
 	public DrawspacePanel(AnchorPointList anchorPointList) {
 		this.setPreferredSize(new Dimension(400,300));
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-		//this.setLayout(null);				// jak by coś nie działało z punktami stanowiska to pewnie chodzi o tą linijke
+		this.setLayout(null);				// jak by coś nie działało z punktami stanowiska to pewnie chodzi o tą linijke
 		this.addMouseListener(this);
 		this.anchorPointList = anchorPointList;
 	}
 	
 	void addAnchorPoint(int x, int y) {
+		//JButton tmpAnchorPoint = new JButton();
+		//tmpAnchorPoint.setBounds(x, y, 15, 15);
 		AnchorPoint tmpAnchorPoint = new AnchorPoint(x, y);
-		tmpAnchorPoint.setBounds(x, y, 20, 20);
+		tmpAnchorPoint.setBounds(x, y, 16, 16);
 		this.add(tmpAnchorPoint);
-		anchorPointList.addAnchorPointToAnchorPointList(tmpAnchorPoint);
+		//anchorPointList.addAnchorPointToAnchorPointList(tmpAnchorPoint);
 	}
 
 	@Override

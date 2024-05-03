@@ -3,7 +3,11 @@ package pl.edu.pw.fizyka.pojava.wmk;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Insets;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 //Made by: Adam Pempkowiak
 //Color change: Kacper Szymczak
@@ -27,31 +31,28 @@ public class AnchorPoint extends JButton{
 	public AnchorPoint(int x, int y) {
 		this.x =x;
 		this.y =y;
-		Dimension size = getPreferredSize();
-		size.width = size.height = Math.max(size.width, size.height);
-		setPreferredSize(size);
-		setContentAreaFilled(false);  
+		//setContentAreaFilled(false);  
+		this.setMargin(new Insets(0, 0, 0, 0));
+		 try {
+			    Image img = ImageIO.read(getClass().getResource("images/anchor_point_icon.png"));
+			    this.setIcon(new ImageIcon(img));
+			  }
+		 catch (Exception ex) {
+			    System.out.println(ex);
+			  }
+		
 	}
 	
 	protected void paintBorder(Graphics g) {
 	    g.setColor(getForeground());
-	    g.drawOval(0, 0, getSize().width-1, 
-	      getSize().height-1);
+	    g.drawOval(0, 0, 15, 15);
 	  }
 		
 	 protected void paintComponent(Graphics g) {
-			  /*
-		    if (true ||getModel().isArmed()) {
-			// You might want to make the highlight color 
-		   // a property of the RoundButton class.
-		      g.setColor(Color.lightGray);
-		    } else {
-		      g.setColor(getBackground());
-		    }
-		    */
-		    g.setColor(currentColor);
-		    g.fillOval(0, 0, getSize().width-1, getSize().height-1);
-		    super.paintComponent(g);
+			 
+	  //  g.setColor(currentColor);
+	   // g.fillOval(0, 0, 14, 14);
+	    super.paintComponent(g);
 	  }
 
 	public int getX() {
