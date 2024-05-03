@@ -78,6 +78,8 @@ public class Window extends JFrame {
 		LanguageChange languageChange = new LanguageChange();
 		resultsPanel.setLanguageChange(languageChange);
 		topPanel.setLanguageChange(languageChange);
+		buttonPanel.setLanguageChange(languageChange);
+		menuBar.setLanguageChange(languageChange);
 		}
 	
 	public static void main(String[] args) {

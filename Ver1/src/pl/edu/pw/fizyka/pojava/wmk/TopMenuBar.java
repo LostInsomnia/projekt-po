@@ -2,6 +2,8 @@ package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -13,6 +15,11 @@ public class TopMenuBar extends JMenuBar{
 	JMenuItem importData;
 	JMenuItem exportData;
 	JMenuItem authorInfo;
+	LanguageChange languageChange;
+	public void setLanguageChange(LanguageChange languageChange) {
+		this.languageChange = languageChange;
+		this.languageChange.setTopMenuBar(this);
+	}
 	public void changeMenuColor() {
 		/*
 		 0 - Main Color
@@ -37,12 +44,22 @@ public class TopMenuBar extends JMenuBar{
 		
 		revalidate();
 	}
+	
+	public void updateLanguageChoice(Locale locale) {
+		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
+		importData.setText(messages.getString("importDataItemMessage"));
+		exportData.setText(messages.getString("exportDataItemMessage"));
+		authorInfo.setText(messages.getString("authorInfoItemMessage"));
+		menu.setText(messages.getString("optionsMenuMessage"));
+	}
+	
 	public TopMenuBar(){
-		 menu = new JMenu("Options");
+		menu = new JMenu();
 		this.add(menu);
-		importData = new JMenuItem("import data");
-		exportData = new JMenuItem("save data");
-		authorInfo = new JMenuItem("author info");
+		importData = new JMenuItem();
+		exportData = new JMenuItem();
+		authorInfo = new JMenuItem();
+		updateLanguageChoice(new Locale("pl","PL"));
 		ActionListener authorInfoListener = new ActionListener() {
 
 			@Override
@@ -52,6 +69,7 @@ public class TopMenuBar extends JMenuBar{
 			}
 			
 		};
+		
 		authorInfo.addActionListener(authorInfoListener);
 		menu.add(importData);
 		menu.addSeparator();

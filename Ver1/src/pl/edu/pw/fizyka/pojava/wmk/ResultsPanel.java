@@ -35,8 +35,7 @@ public void changeResultColor() {
 	public ResultsPanel(){
 		
 		calculateResultsButton = new JButton("calculate");
-		Locale locale = new Locale("pl", "PL");
-		Locale.setDefault(locale);
+		
 		//FileInputStream file = null;
 		//calculateResultsButton.setText(messages.getString("calculateButtonMessage"));
 		/* try {
@@ -53,6 +52,7 @@ public void changeResultColor() {
 			e.printStackTrace();
 		}	*/
 		//System.out.println(properties.getProperty("calculateButtonMessage"));
+		updateLanguageChoice(new Locale("pl", "PL"));
 		this.add(calculateResultsButton);
 		il8n();
 	}

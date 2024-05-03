@@ -34,7 +34,7 @@ public class LanguageButton extends JButton implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) { 
 	     if(poland) {
-	    	 languageChange.updateLanguageChoice(new Locale("pl","PL"));
+	    	 languageChange.updateLanguageChoice(new Locale("en","US"));
 	    	 try {
 				    Image img = ImageIO.read(getClass().getResource("images/greatbrittain_selected.jpeg"));
 				    this.setIcon(new ImageIcon(img));
@@ -44,7 +44,7 @@ public class LanguageButton extends JButton implements ActionListener{
 				  }
 	     }
 	     else {
-	    	 languageChange.updateLanguageChoice(new Locale("en","US"));
+	    	 languageChange.updateLanguageChoice(new Locale("pl","PL"));
 	    	 try {
 				    Image img = ImageIO.read(getClass().getResource("images/poland_selected.png"));
 				    this.setIcon(new ImageIcon(img));

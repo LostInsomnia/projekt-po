@@ -3,6 +3,8 @@ package pl.edu.pw.fizyka.pojava.wmk;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -14,7 +16,13 @@ public class BotPanel extends JPanel {
 	JButton addAnchor;
 	JButton startSim;
 	JButton clear;
+	LanguageChange languageChange;
 	
+public void setLanguageChange(LanguageChange languageChange) {
+		this.languageChange = languageChange;
+		this.languageChange.setBotPanel(this);
+	}
+
 public void changeBotColor() {
 		
 	/*
@@ -49,6 +57,15 @@ public void changeBotColor() {
 		startSim = new JButton("Simulate");
 		this.add(startSim);
 	}
+	
+	public void updateLanguageChoice(Locale locale) {
+		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
+		addPoint.setText(messages.getString("addPointButtonMessage"));
+		addAnchor.setText(messages.getString("addAnchorButtonMessage"));
+		clear.setText(messages.getString("clearButtonMessage"));
+		startSim.setText(messages.getString("startSimButtonMessage"));
+	}
+	
 	public BotPanel(DrawspacePanel drawspace) {
 		this.setLayout(new FlowLayout());
 		addPoint = new JButton("add point");
@@ -59,7 +76,8 @@ public void changeBotColor() {
 		this.add(clear);
 		startSim = new JButton("Simulate");
 		this.add(startSim);
-		
+		updateLanguageChoice(new Locale("pl","PL"));
+
 		ActionListener addPointPressed = new ActionListener() {
 			@Override
 			public void actionPerformed (ActionEvent e) {
