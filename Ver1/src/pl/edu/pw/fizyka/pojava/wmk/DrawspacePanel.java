@@ -26,14 +26,16 @@ public void changeDrawspaceColor() {
 		
 		revalidate();
 	}
-
+	ParamPanel paramPanel;
+	public void setParamPanel(ParamPanel paramPanel) {
+		this.paramPanel = paramPanel;
+	}
 	Boolean addAnchorPointSelected = false;
 	AnchorPointList anchorPointList; 
 	public DrawspacePanel() {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400,300));
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-		//this.setLayout(null);				// jak by coś nie działało z punktami stanowiska to pewnie chodzi o tą linijke
 		this.addMouseListener(this);
 	}
 	
@@ -46,12 +48,14 @@ public void changeDrawspaceColor() {
 	}
 	
 	void addAnchorPoint(int x, int y) {
-		//JButton tmpAnchorPoint = new JButton();
-		//tmpAnchorPoint.setBounds(x, y, 15, 15);
 		AnchorPoint tmpAnchorPoint = new AnchorPoint(x, y);
+		tmpAnchorPoint.setParamPanel(paramPanel);
 		tmpAnchorPoint.setBounds(x, y, 16, 16);
 		this.add(tmpAnchorPoint);
-		//anchorPointList.addAnchorPointToAnchorPointList(tmpAnchorPoint);
+		anchorPointList.addAnchorPointToAnchorPointList(tmpAnchorPoint);	
+		//TestButton testbutton = new TestButton();
+		//testbutton.setBounds(x, y, 33, 33);
+		//this.add(testbutton);
 	}
 
 	@Override
@@ -71,7 +75,6 @@ public void changeDrawspaceColor() {
 		if (addAnchorPointSelected)
 			addAnchorPoint(e.getX(), e.getY());
 		this.revalidate();
-		//System.out.println(addAnchorPointSelected);
 		addAnchorPointSelected = false;
 		
 	}

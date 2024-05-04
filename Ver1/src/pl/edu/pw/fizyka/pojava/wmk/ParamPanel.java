@@ -1,19 +1,41 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 //Made by: Kacper Szymczak
-
+// edited by: Adam Pempkowiak;
 public class ParamPanel extends JPanel{
 	JLabel par1, par2, par3;
 	JTextField inputPar1, inputPar2, inputPar3;
-
+	LanguageChange languageChange;
+	JSlider slider;
+	JLabel brakingStrength;
+	public void setLanguageChange(LanguageChange languageChange) {
+		this.languageChange = languageChange;
+		this.languageChange.setParamPanel(this);
+	}
+	public void displayPointData(float brakingStrengthinkN) {
+		this.removeAll();
+		this.setLayout(new GridLayout(2, 1));
+		brakingStrength = new JLabel("braking strength in kN");
+		this.add(brakingStrength);
+		//ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", languageChange.getLocale());
+		//brakingStrength.setText(messages.getString("anchorPointBrakingStrengthMessage"));
+		slider = new JSlider(0, 20, (int)brakingStrengthinkN);
+		this.add(slider);
+		revalidate();
+		
+	}
 public void changeParamColor() {
 		
 	/*
@@ -41,6 +63,12 @@ public void changeParamColor() {
 		
 		revalidate();
 	}
+	
+	public void updateLanguageChoice(Locale locale) {
+		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
+		brakingStrength.setText(messages.getString("anchorPointBrakingStrengthMessage"));
+	}
+
 	public ParamPanel(){
 		Dimension element = new Dimension(100,25);
 		Dimension spacing = new Dimension(100,50);

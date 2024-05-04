@@ -35,6 +35,7 @@ public class Window extends JFrame {
 
 		
 		DrawspacePanel drawspace = new DrawspacePanel(anchorPointList);
+		drawspace.setParamPanel(paramPanel);
 		this.add(drawspace, BorderLayout.CENTER);
 		
 		BotPanel buttonPanel = new BotPanel(drawspace);
@@ -80,6 +81,7 @@ public class Window extends JFrame {
 		topPanel.setLanguageChange(languageChange);
 		buttonPanel.setLanguageChange(languageChange);
 		menuBar.setLanguageChange(languageChange);
+		paramPanel.setLanguageChange(languageChange);
 		}
 	
 	public static void main(String[] args) {

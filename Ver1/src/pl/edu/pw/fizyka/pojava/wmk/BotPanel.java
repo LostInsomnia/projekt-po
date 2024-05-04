@@ -77,7 +77,8 @@ public void changeBotColor() {
 		startSim = new JButton("Simulate");
 		this.add(startSim);
 		updateLanguageChoice(new Locale("pl","PL"));
-
+		
+		
 		ActionListener addPointPressed = new ActionListener() {
 			@Override
 			public void actionPerformed (ActionEvent e) {

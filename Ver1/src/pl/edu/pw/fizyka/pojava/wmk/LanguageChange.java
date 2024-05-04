@@ -7,6 +7,10 @@ public class LanguageChange {
 	ResultsPanel resultsPanel;
 	BotPanel botPanel;
 	TopMenuBar topMenuBar;
+	ParamPanel paramPanel;
+	public void setParamPanel(ParamPanel paramPanel) {
+		this.paramPanel = paramPanel;
+	}
 	public void setBotPanel(BotPanel botPanel) {
 		this.botPanel = botPanel;
 	}
@@ -24,6 +28,7 @@ public class LanguageChange {
 		resultsPanel.updateLanguageChoice(locale);
 		botPanel.updateLanguageChoice(locale);
 		topMenuBar.updateLanguageChoice(locale);
+		paramPanel.updateLanguageChoice(locale);
 	}
 	public Locale getLocale() {
 		return locale;

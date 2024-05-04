@@ -1,17 +1,30 @@
 package pl.edu.pw.fizyka.pojava.wmk;		
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 //Made by: Adam Pempkowiak
 //Color change: Kacper Szymczak
-public class AnchorPoint extends JButton{
+public class AnchorPoint extends JButton {
+	ParamPanel paramPanel;
+	protected int x, y;
+	protected float breakingStrength = 20;		// in kN
+	protected Boolean isMaster = false;
+	ActionListener listener = new ActionListener() {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//paramPanel.displayPointData(this);
+		System.out.println("test");
+		paramPanel.displayPointData( breakingStrength);
+	}
+	};
 	Color currentColor = ColorScheme.getColorScheme()[3];
 	public void changePointColor(){
 		/*
@@ -25,13 +38,16 @@ public class AnchorPoint extends JButton{
 		revalidate();
 		
 	}
-	protected int x, y;
 	
-	protected float breakingStrength = 20;		// in kN
+	public void setParamPanel(ParamPanel paramPanel) {
+		this.paramPanel = paramPanel;
+	}
+	
 	public AnchorPoint(int x, int y) {
 		this.x =x;
 		this.y =y;
 		//setContentAreaFilled(false);  
+		this.addActionListener(listener);
 		this.setMargin(new Insets(0, 0, 0, 0));
 		 try {
 			    Image img = ImageIO.read(getClass().getResource("images/anchor_point_icon.png"));
@@ -42,7 +58,7 @@ public class AnchorPoint extends JButton{
 			  }
 		
 	}
-	
+	/*
 	protected void paintBorder(Graphics g) {
 	    g.setColor(getForeground());
 	    g.drawOval(0, 0, 15, 15);
@@ -54,7 +70,7 @@ public class AnchorPoint extends JButton{
 	   // g.fillOval(0, 0, 14, 14);
 	    super.paintComponent(g);
 	  }
-
+*/
 	public int getX() {
 		return x;
 	}
