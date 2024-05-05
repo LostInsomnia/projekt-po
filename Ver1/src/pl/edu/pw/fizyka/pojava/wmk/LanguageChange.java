@@ -8,6 +8,7 @@ public class LanguageChange {
 	BotPanel botPanel;
 	TopMenuBar topMenuBar;
 	ParamPanel paramPanel;
+	
 	public void setParamPanel(ParamPanel paramPanel) {
 		this.paramPanel = paramPanel;
 	}

@@ -17,6 +17,7 @@ public class BotPanel extends JPanel {
 	JButton startSim;
 	JButton clear;
 	LanguageChange languageChange;
+	Locale locale = new Locale("pl","PL");
 	
 public void setLanguageChange(LanguageChange languageChange) {
 		this.languageChange = languageChange;
@@ -64,6 +65,7 @@ public void changeBotColor() {
 		addAnchor.setText(messages.getString("addAnchorButtonMessage"));
 		clear.setText(messages.getString("clearButtonMessage"));
 		startSim.setText(messages.getString("startSimButtonMessage"));
+		this.locale = locale;
 	}
 	
 	public BotPanel(DrawspacePanel drawspace) {
@@ -98,7 +100,15 @@ public void changeBotColor() {
 		};
 		clear.addActionListener(clearDrawspace);
 		
-		
+		ActionListener addAnchorPressed = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddAnchorWindow addAnchorWindow = new AddAnchorWindow(locale, drawspace.getAnchorPointList());
+				//addAnchorWindow.setAnchorPointList(drawspace.getAnchorPointList());
+			}
+		};
+		addAnchor.addActionListener(addAnchorPressed);
 	}
 
 

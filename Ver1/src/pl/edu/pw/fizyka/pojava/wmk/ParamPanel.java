@@ -17,8 +17,8 @@ import javax.swing.event.ChangeListener;
 //Made by: Kacper Szymczak
 // edited by: Adam Pempkowiak;
 public class ParamPanel extends JPanel{
-	JLabel par1, par2, par3;
-	JTextField inputPar1, inputPar2, inputPar3;
+//	JLabel par1, par2, par3;
+//	JTextField inputPar1, inputPar2, inputPar3;
 	LanguageChange languageChange;
 	JSlider slider;
 	JLabel brakingStrength;
@@ -60,7 +60,7 @@ public void changeParamColor() {
 	 */
 		this.setBackground(ColorScheme.getColorScheme()[0]);
 		
-		par1.setForeground(ColorScheme.getColorScheme()[2]);
+/*		par1.setForeground(ColorScheme.getColorScheme()[2]);
 		par2.setForeground(ColorScheme.getColorScheme()[2]);
 		par3.setForeground(ColorScheme.getColorScheme()[2]);
 		
@@ -73,14 +73,15 @@ public void changeParamColor() {
 		
 		inputPar3.setBackground(ColorScheme.getColorScheme()[1]);
 		//inputPar3.setForeground(ColorScheme.getColorScheme()[2]);
-		
+		*/
 		
 		revalidate();
 	}
 	
 	public void updateLanguageChoice(Locale locale) {
 		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
-		brakingStrength.setText(messages.getString("anchorPointBrakingStrengthMessage"));
+		if(brakingStrength != null)
+			brakingStrength.setText(messages.getString("anchorPointBrakingStrengthMessage"));
 	}
 
 	public ParamPanel(){
@@ -88,7 +89,7 @@ public void changeParamColor() {
 		Dimension spacing = new Dimension(100,50);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS ));
 		this.add(Box.createRigidArea(spacing));
-		par1 = new JLabel("Parameter 1");
+	/*	par1 = new JLabel("Parameter 1");
 		par1.setAlignmentX(CENTER_ALIGNMENT);
 		par1.setPreferredSize(element);
 		this.add(par1);
@@ -114,6 +115,6 @@ public void changeParamColor() {
 		this.add(inputPar3);
 		inputPar3.setMaximumSize(element);
 		this.add(Box.createRigidArea(spacing));
-		
+		*/
 	}
 }

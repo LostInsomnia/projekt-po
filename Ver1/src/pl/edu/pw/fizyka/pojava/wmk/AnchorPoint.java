@@ -65,6 +65,10 @@ public class AnchorPoint extends JButton {
 			  }
 		
 	}
+	public int getN() {
+		return n;
+	}
+
 	/*
 	protected void paintBorder(Graphics g) {
 	    g.setColor(getForeground());

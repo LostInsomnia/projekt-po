@@ -33,6 +33,10 @@ public void changeDrawspaceColor() {
 	}
 	Boolean addAnchorPointSelected = false;
 	AnchorPointList anchorPointList; 
+	public AnchorPointList getAnchorPointList() {
+		return anchorPointList;
+	}
+
 	public DrawspacePanel() {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(400,300));

@@ -6,7 +6,7 @@ import java.util.List;
 //Made by: Adam Pempkowiak, 
 //Color change: Kacper Szymczak
 public class AnchorPointList {
-	static List <AnchorPoint> anchorPointList = new ArrayList<>();
+	List <AnchorPoint> anchorPointList = new ArrayList<AnchorPoint>();
 	public AnchorPointList() {
 		anchorPointList.clear();
 	}
