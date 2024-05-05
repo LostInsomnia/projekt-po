@@ -14,17 +14,17 @@ import javax.swing.JButton;
 //Color change: Kacper Szymczak
 public class AnchorPoint extends JButton {
 	ParamPanel paramPanel;
-	protected int x, y;
+	protected int x, y, n;
 	protected float breakingStrength = 20;		// in kN
 	protected Boolean isMaster = false;
 	ActionListener listener = new ActionListener() {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//paramPanel.displayPointData(this);
-		System.out.println("test");
 		paramPanel.displayPointData( breakingStrength);
 	}
 	};
+	
 	Color currentColor = ColorScheme.getColorScheme()[3];
 	public void changePointColor(){
 		/*
@@ -43,15 +43,22 @@ public class AnchorPoint extends JButton {
 		this.paramPanel = paramPanel;
 	}
 	
-	public AnchorPoint(int x, int y) {
+	public AnchorPoint(int x, int y, int n) {
 		this.x =x;
 		this.y =y;
+		this.n = n;
 		//setContentAreaFilled(false);  
 		this.addActionListener(listener);
 		this.setMargin(new Insets(0, 0, 0, 0));
+		 
 		 try {
 			    Image img = ImageIO.read(getClass().getResource("images/anchor_point_icon.png"));
 			    this.setIcon(new ImageIcon(img));
+			    this.setVerticalTextPosition(this.CENTER);
+			    this.setHorizontalTextPosition(CENTER);
+			    this.setForeground(Color.white);
+			    this.setText(Integer.toString(n+1));
+			   
 			  }
 		 catch (Exception ex) {
 			    System.out.println(ex);

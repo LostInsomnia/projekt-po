@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 //Made by: Kacper Szymczak
 // edited by: Adam Pempkowiak;
@@ -32,6 +34,18 @@ public class ParamPanel extends JPanel{
 		//ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", languageChange.getLocale());
 		//brakingStrength.setText(messages.getString("anchorPointBrakingStrengthMessage"));
 		slider = new JSlider(0, 20, (int)brakingStrengthinkN);
+		slider.setMajorTickSpacing(6);
+		slider.setMinorTickSpacing(2);
+		
+		ChangeListener listener  = new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
 		this.add(slider);
 		revalidate();
 		

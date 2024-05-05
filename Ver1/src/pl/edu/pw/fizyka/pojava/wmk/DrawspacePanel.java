@@ -27,6 +27,7 @@ public void changeDrawspaceColor() {
 		revalidate();
 	}
 	ParamPanel paramPanel;
+	int n = 0;
 	public void setParamPanel(ParamPanel paramPanel) {
 		this.paramPanel = paramPanel;
 	}
@@ -48,7 +49,8 @@ public void changeDrawspaceColor() {
 	}
 	
 	void addAnchorPoint(int x, int y) {
-		AnchorPoint tmpAnchorPoint = new AnchorPoint(x, y);
+		AnchorPoint tmpAnchorPoint = new AnchorPoint(x, y, n);
+		n++;
 		tmpAnchorPoint.setParamPanel(paramPanel);
 		tmpAnchorPoint.setBounds(x, y, 16, 16);
 		this.add(tmpAnchorPoint);
