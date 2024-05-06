@@ -63,7 +63,10 @@ public void changeDrawspaceColor() {
 		//testbutton.setBounds(x, y, 33, 33);
 		//this.add(testbutton);
 	}
-
+	void addAnchor(Anchor anchor) {
+		anchor.getMasterPoint().setBounds(anchor.getMasterPoint().getX(), anchor.getMasterPoint().getY(), 16, 16);
+		this.add(anchor.getMasterPoint());
+	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub

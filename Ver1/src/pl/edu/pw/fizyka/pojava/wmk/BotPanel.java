@@ -104,7 +104,7 @@ public void changeBotColor() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddAnchorWindow addAnchorWindow = new AddAnchorWindow(locale, drawspace.getAnchorPointList());
+				AddAnchorWindow addAnchorWindow = new AddAnchorWindow(locale, drawspace);
 				//addAnchorWindow.setAnchorPointList(drawspace.getAnchorPointList());
 			}
 		};
