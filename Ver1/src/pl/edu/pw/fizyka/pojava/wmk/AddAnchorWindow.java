@@ -2,9 +2,9 @@ package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Desktop.Action;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -25,6 +25,7 @@ public class AddAnchorWindow extends JFrame{
 	AnchorPointList anchorPointList;
 	String chosenMaterial;
 	DrawspacePanel drawspace;
+	ArrayList<Integer> chosenPoints = new ArrayList<>();
 	
 	 int stChosenPoint, ndChosenPoint = -1;
 	public AddAnchorWindow(Locale locale, DrawspacePanel drawspace) {
@@ -51,7 +52,8 @@ public class AddAnchorWindow extends JFrame{
 			// TODO Auto-generated constructor stub
 			this.add(new JLabel(messages.getString("choosePointsForAnchorMessage")));
 			this.setLayout(new GridLayout(anchorPointList.getAnchorPointList().size()+1, 1));
-			
+			JLabel infoLabel = new JLabel();
+			this.add(infoLabel);
 			
 			for(int i = 0; i<anchorPointList.getAnchorPointList().size(); i++) {
 				JButton button = new JButton("point number " + Integer.toString(1+anchorPointList.getAnchorPointList().get(i).getN()));
@@ -60,13 +62,15 @@ public class AddAnchorWindow extends JFrame{
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if (stChosenPoint == -1) {
-							stChosenPoint=n;
-						}
-						else {
-							if(ndChosenPoint == -1)
-								ndChosenPoint=n;
-						}
+						//if (stChosenPoint == -1) {
+							chosenPoints.add(n);			
+							//}
+						//else {
+						//	if(ndChosenPoint == (-1))
+							//	ndChosenPoint=n;
+					//	}
+							if(chosenPoints.size()>1)
+								infoLabel.setText(Integer.toString(1+chosenPoints.get(chosenPoints.size()-1))+" "+Integer.toString(1+chosenPoints.get(chosenPoints.size()-2)));
 					}
 				};
 				button.addActionListener(listener);
@@ -117,10 +121,12 @@ public class AddAnchorWindow extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
+					drawspace.addAnchor(new Anchor(anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size()-1)), 
+							anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size()-2)), chosenMaterial, anchorPointList));
 					
 				}
 			};
+			addAnchor.addActionListener(addAnchorListener);
 			this.add(addAnchor);
 		}
 	}

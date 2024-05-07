@@ -25,8 +25,13 @@ public class AnchorPointList {
 		}
 		
 	}
-	public static void clearList() {
-		anchorPointList.clear();
+	public void clearList() {
+		try {
+			anchorPointList.clear();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

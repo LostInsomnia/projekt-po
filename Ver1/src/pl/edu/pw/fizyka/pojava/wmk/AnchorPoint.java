@@ -65,6 +65,14 @@ public class AnchorPoint extends JButton {
 			  }
 		
 	}
+	public Boolean getIsMaster() {
+		return isMaster;
+	}
+
+	public void setIsMaster(Boolean isMaster) {
+		this.isMaster = isMaster;
+	}
+
 	public int getN() {
 		return n;
 	}

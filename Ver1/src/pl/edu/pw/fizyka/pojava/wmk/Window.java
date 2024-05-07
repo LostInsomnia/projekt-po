@@ -36,6 +36,7 @@ public class Window extends JFrame {
 		
 		DrawspacePanel drawspace = new DrawspacePanel(anchorPointList);
 		drawspace.setParamPanel(paramPanel);
+		drawspace.setResultPanel(resultsPanel);
 		this.add(drawspace, BorderLayout.CENTER);
 		
 		BotPanel buttonPanel = new BotPanel(drawspace);

@@ -2,6 +2,7 @@ package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -27,6 +28,11 @@ public void changeDrawspaceColor() {
 		revalidate();
 	}
 	ParamPanel paramPanel;
+	Anchor anchor;
+	ResultsPanel resultPanel;
+	public void setResultPanel(ResultsPanel resultPanel) {
+		this.resultPanel = resultPanel;
+	}
 	int n = 0;
 	public void setParamPanel(ParamPanel paramPanel) {
 		this.paramPanel = paramPanel;
@@ -64,9 +70,26 @@ public void changeDrawspaceColor() {
 		//this.add(testbutton);
 	}
 	void addAnchor(Anchor anchor) {
+		this.anchor = anchor;
 		anchor.getMasterPoint().setBounds(anchor.getMasterPoint().getX(), anchor.getMasterPoint().getY(), 16, 16);
 		this.add(anchor.getMasterPoint());
+		revalidate();
+		repaint();
+		resultPanel.setAnchor(anchor);
 	}
+	
+/*	public void paint(Graphics g) 
+    { 
+		for (int i=0; i<anchorPointList.getAnchorPointList().size();i++) {
+			if (anchorPointList.getAnchorPointList().get(i).getIsMaster()) {
+				
+			}
+		} 
+        // draw and display the line 
+		//if(anchor != null)
+			//g.drawLine(anchor.stAnchorPoint.getX(), anchor.stAnchorPoint.getY(), anchor.masterPoint.getX(), anchor.masterPoint.getY()); 
+    }  */
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub

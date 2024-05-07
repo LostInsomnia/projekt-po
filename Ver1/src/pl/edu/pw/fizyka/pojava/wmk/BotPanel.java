@@ -92,7 +92,7 @@ public void changeBotColor() {
 		ActionListener clearDrawspace = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				AnchorPointList.clearList();
+				drawspace.getAnchorPointList().clearList();
 				drawspace.removeAll();
 				drawspace.repaint();
 				drawspace.revalidate();

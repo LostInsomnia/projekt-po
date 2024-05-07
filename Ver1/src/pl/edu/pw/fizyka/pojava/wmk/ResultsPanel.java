@@ -1,5 +1,7 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,6 +11,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //Made by: Adam Pempkowiak
@@ -16,6 +19,8 @@ import javax.swing.JPanel;
 public class ResultsPanel extends JPanel{
 	JButton calculateResultsButton;
 	LanguageChange languageChange;
+	Anchor anchor;
+	double F1, F2;
 public void setLanguageChange(LanguageChange languageChange) {
 		this.languageChange = languageChange;
 		languageChange.setResultsPanel(this);
@@ -35,7 +40,17 @@ public void changeResultColor() {
 	public ResultsPanel(){
 		
 		calculateResultsButton = new JButton("calculate");
-		
+		JLabel resultLabel = new JLabel();
+		this.add(resultLabel);
+		ActionListener resultsButtonListener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				resultLabel.setText("force on st point if force on masterPoint is 1 kN" + Double.toString(F1)+ "kN");
+				
+			}
+		};
+		calculateResultsButton.addActionListener(resultsButtonListener);
 		//FileInputStream file = null;
 		//calculateResultsButton.setText(messages.getString("calculateButtonMessage"));
 		/* try {
@@ -61,12 +76,27 @@ public void changeResultColor() {
 		calculateResultsButton.setText(messages.getString("calculateButtonMessage"));
 	}
 	
-	
+	public void claculateResult(Anchor anchor) {
+		int x1 = anchor.getStAnchorPoint().getX();
+		int y1 = anchor.getStAnchorPoint().getY();
+		int x2 = anchor.getNdAnchorPoint().getX();
+		int y2 = anchor.getNdAnchorPoint().getY();
+		int xc =  anchor.getMasterPoint().getX();
+		int yc =  anchor.getMasterPoint().getY();
+		
+		F1 = (xc-x2)*Math.sqrt((double)(Math.pow(xc, 2)+Math.pow(y1, 2)))/(-x2*y1+xc*(y1+y2));
+	}
+	public Anchor getAnchor() {
+		return anchor;
+	}
+	public void setAnchor(Anchor anchor) {
+		this.anchor = anchor;
+		claculateResult(anchor);
+	}
 	private  void il8n() {
 		Locale polishLocale = new Locale("pl", "PL");
 		Locale.setDefault(polishLocale);
 		//ResourceBundle bundle = ResourceBundle.getBundle("messages", polishLocale);
 		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages");
-		System.out.println(messages.getString("calculateButtonMessage"));
 	}
 }

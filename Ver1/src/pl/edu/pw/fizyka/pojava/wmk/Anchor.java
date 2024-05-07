@@ -13,11 +13,13 @@ public class Anchor {
 		this.ndAnchorPoint = ndAnchorPoint;
 		this.material = material;
 		this.anchorPointList = anchorPointList;
+		setMasterPointParameters();
 	}
-	private void setMasterPointParameters() {
-		AnchorPoint masterPoint = new AnchorPoint(0, 0, anchorPointList.getAnchorPointList().size());
+	void setMasterPointParameters() {
+		masterPoint = new AnchorPoint(0, 0, anchorPointList.getAnchorPointList().size());
 		masterPoint.setX((int)(0.5*(stAnchorPoint.getX()+ndAnchorPoint.getX())));
-		masterPoint.setY(Math.max((int)(0.5*(stAnchorPoint.getY()+ndAnchorPoint.getY())), (int)(0.5*(stAnchorPoint.getY()+ndAnchorPoint.getY()))));
+		masterPoint.setY(Math.max((int)(0.5*(stAnchorPoint.getY()+ndAnchorPoint.getY())+200), (int)(0.5*(stAnchorPoint.getY()+ndAnchorPoint.getY()))));
+		masterPoint.setIsMaster(true);
 		anchorPointList.addAnchorPointToAnchorPointList(masterPoint);
 	}
 	public AnchorPoint getStAnchorPoint() {
