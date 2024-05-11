@@ -83,5 +83,9 @@ public class Anchor {
 		return masterPoint;
 	}
 	
+	public void saveData() {
+		
+	}
+	
 	
 }

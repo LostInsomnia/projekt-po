@@ -2,6 +2,9 @@ package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -17,6 +20,7 @@ public class TopMenuBar extends JMenuBar{
 	JMenuItem exportData;
 	JMenuItem authorInfo;
 	LanguageChange languageChange;
+	
 	public void setLanguageChange(LanguageChange languageChange) {
 		this.languageChange = languageChange;
 		this.languageChange.setTopMenuBar(this);
@@ -55,7 +59,8 @@ public class TopMenuBar extends JMenuBar{
 		menu.setText(messages.getString("optionsMenuMessage"));
 	}
 	
-	public TopMenuBar(){
+	
+	public TopMenuBar(AnchorPointList anch){
 		menu = new JMenu();
 		this.add(menu);
 		importData = new JMenuItem();
@@ -78,5 +83,30 @@ public class TopMenuBar extends JMenuBar{
 		menu.add(exportData);
 		menu.addSeparator();
 		menu.add(authorInfo);
+		
+		exportData.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				//File inputFile = new File("savedData.txt");
+				try {
+					BufferedWriter writer = new BufferedWriter(new FileWriter("savedData.txt"));
+					writer.write("Point Number" + "\t" + "Breaking Strength" +"\t"+"X Pos"+ "\t"+ "YPos"+ "\n" );
+					for(int i = 0; i<anch.getAnchorPointList().size(); i++) {
+						writer.write(("   " + i + "\t" +Float.toString(anch.getAnchorPointList().get(i).getBreakingStrength())+"\t"+anch.getAnchorPointList().get(i).getX()
+								+"\t"+anch.getAnchorPointList().get(i).getY()+"\n"));
+						
+					}
+					writer.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 	}
+	
+	
+	
 }

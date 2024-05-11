@@ -20,11 +20,11 @@ public class Window extends JFrame {
 		TopPanel topPanel = new TopPanel();
 		this.add(topPanel, BorderLayout.PAGE_START);
 		
-		TopMenuBar menuBar = new TopMenuBar();
+		AnchorPointList anchorPointList = new AnchorPointList();
+		
+		TopMenuBar menuBar = new TopMenuBar(anchorPointList);
 		this.setJMenuBar(menuBar);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		AnchorPointList anchorPointList = new AnchorPointList();
 		
 		ParamPanel paramPanel = new ParamPanel();
 		this.add(paramPanel, BorderLayout.LINE_START);
