@@ -9,8 +9,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import lab6zad2.MainClass;
-
 //Made by: Adam Pempkowiak, Kacper Szymczak
 
 public class Window extends JFrame {
@@ -70,7 +68,7 @@ public class Window extends JFrame {
 		//set initial colors
 		drawspace.changeDrawspaceColor();
 		topPanel.changeTopPanelColor();
-		paramPanel.changeParamColor();
+		//paramPanel.changeParamColor();
 		resultsPanel.changeResultColor();
 		buttonPanel.changeBotColor();
 		colorMode.setBackground(ColorScheme.getColorScheme()[0]);
