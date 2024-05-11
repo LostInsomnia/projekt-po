@@ -109,6 +109,16 @@ public void changeBotColor() {
 			}
 		};
 		addAnchor.addActionListener(addAnchorPressed);
+		
+		ActionListener startSimListener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				drawspace.repaint();
+				
+			}
+		};
+		startSim.addActionListener(startSimListener);
 	}
 
 

@@ -9,6 +9,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //Made by: Kacper Szymczak, Adam Pempkowiak
@@ -77,14 +78,16 @@ public void changeDrawspaceColor() {
 		repaint();
 		resultPanel.setAnchor(anchor);
 	}
-	
-/*	public void paint(Graphics g) 
+	/*
+	public void paint(Graphics g) 
     { 
+		this.add(new JLabel(" "));
 		for (int i=0; i<anchorPointList.getAnchorPointList().size();i++) {
-			if (anchorPointList.getAnchorPointList().get(i).getIsMaster()) {
-				
-			}
+			AnchorPoint tmp = anchorPointList.getAnchorPointList().get(i);
+			tmp.setBounds(tmp.getX(), tmp.getY(), 16, 16);
+			this.add(tmp);
 		} 
+		g.drawLine(10, 10, 100, 100);
         // draw and display the line 
 		//if(anchor != null)
 			//g.drawLine(anchor.stAnchorPoint.getX(), anchor.stAnchorPoint.getY(), anchor.masterPoint.getX(), anchor.masterPoint.getY()); 

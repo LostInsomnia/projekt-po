@@ -23,11 +23,15 @@ public class AddAnchorWindow extends JFrame{
 	Locale locale;
 	ResourceBundle messages;
 	AnchorPointList anchorPointList;
-	String chosenMaterial;
+	String chosenMaterial = null;
 	DrawspacePanel drawspace;
 	ArrayList<Integer> chosenPoints = new ArrayList<>();
+	AnchorMaterial anchorMaterial;
+	enum AnchorMaterial{
+		cordelette7mm,
+		sling
+	}
 	
-	 int stChosenPoint, ndChosenPoint = -1;
 	public AddAnchorWindow(Locale locale, DrawspacePanel drawspace) {
 		// TODO Auto-generated constructor stub
 		this.setVisible(true);
@@ -62,15 +66,10 @@ public class AddAnchorWindow extends JFrame{
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						//if (stChosenPoint == -1) {
 							chosenPoints.add(n);			
-							//}
-						//else {
-						//	if(ndChosenPoint == (-1))
-							//	ndChosenPoint=n;
-					//	}
+						
 							if(chosenPoints.size()>1)
-								infoLabel.setText(Integer.toString(1+chosenPoints.get(chosenPoints.size()-1))+" "+Integer.toString(1+chosenPoints.get(chosenPoints.size()-2)));
+								infoLabel.setText(messages.getString("chosenPointsMessage") + Integer.toString(1+chosenPoints.get(chosenPoints.size()-1))+" "+Integer.toString(1+chosenPoints.get(chosenPoints.size()-2)));
 					}
 				};
 				button.addActionListener(listener);
@@ -106,6 +105,8 @@ public class AddAnchorWindow extends JFrame{
 		public BottomPanel() {
 			// TODO Auto-generated constructor stub
 			this.setLayout(new FlowLayout());
+			JLabel errorMessageLabel = new JLabel();
+			this.add(errorMessageLabel);
 			JButton cancel = new JButton(messages.getString("cancelMessage"));
 			cancel.addActionListener(new ActionListener() {
 				
@@ -121,9 +122,14 @@ public class AddAnchorWindow extends JFrame{
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if(chosenPoints.size()>1 && chosenMaterial!=null) {
 					drawspace.addAnchor(new Anchor(anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size()-1)), 
 							anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size()-2)), chosenMaterial, anchorPointList));
-					
+					dispose();
+					}
+					else {
+						errorMessageLabel.setText(messages.getString("errorMessageLabel"));
+					}
 				}
 			};
 			addAnchor.addActionListener(addAnchorListener);
