@@ -20,35 +20,13 @@ public class TopMenuBar extends JMenuBar{
 	JMenuItem exportData;
 	JMenuItem authorInfo;
 	LanguageChange languageChange;
+	AuthorInfoWindow window;
 	
 	public void setLanguageChange(LanguageChange languageChange) {
 		this.languageChange = languageChange;
 		this.languageChange.setTopMenuBar(this);
 	}
-	public void changeMenuColor() {
-		/*
-		 0 - Main Color
-		 1 - Secondary Color
-		 2 - Text Color
-		 3 - Button Color
-		 */
-		
-		this.setBackground(ColorScheme.getColorScheme()[0]);
-		
-		menu.setBackground(ColorScheme.getColorScheme()[0]);
-		menu.setForeground(ColorScheme.getColorScheme()[2]);
-		
-		importData.setBackground(ColorScheme.getColorScheme()[3]);
-		importData.setForeground(ColorScheme.getColorScheme()[2]);
-		
-		exportData.setBackground(ColorScheme.getColorScheme()[3]);
-		exportData.setForeground(ColorScheme.getColorScheme()[2]);
-		
-		authorInfo.setBackground(ColorScheme.getColorScheme()[3]);
-		authorInfo.setForeground(ColorScheme.getColorScheme()[2]);
-		
-		revalidate();
-	}
+	
 	
 	public void updateLanguageChoice(Locale locale) {
 		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
@@ -73,7 +51,7 @@ public class TopMenuBar extends JMenuBar{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				new AuthorInfoWindow(locale).setVisible(true);
+				window = new AuthorInfoWindow(locale);
 			}
 			
 		};
@@ -108,6 +86,35 @@ public class TopMenuBar extends JMenuBar{
 		});
 	}
 	
-	
+	public void changeMenuColor() {
+		/*
+		 0 - Main Color
+		 1 - Secondary Color
+		 2 - Text Color
+		 3 - Button Color
+		 */
+		
+		this.setBackground(ColorScheme.getColorScheme()[0]);
+		
+		menu.setBackground(ColorScheme.getColorScheme()[0]);
+		menu.setForeground(ColorScheme.getColorScheme()[2]);
+		
+		importData.setBackground(ColorScheme.getColorScheme()[3]);
+		importData.setForeground(ColorScheme.getColorScheme()[2]);
+		
+		exportData.setBackground(ColorScheme.getColorScheme()[3]);
+		exportData.setForeground(ColorScheme.getColorScheme()[2]);
+		
+		authorInfo.setBackground(ColorScheme.getColorScheme()[3]);
+		authorInfo.setForeground(ColorScheme.getColorScheme()[2]);
+		
+		if(window != null) {
+			window.changeInfoWindowColor(ColorScheme.getColorScheme()[0], ColorScheme.getColorScheme()[2]);
+		
+		}
+		
+		
+		revalidate();
+	}
 	
 }
