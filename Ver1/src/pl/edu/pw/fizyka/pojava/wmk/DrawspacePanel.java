@@ -54,21 +54,21 @@ public void changeDrawspaceColor() {
 	public DrawspacePanel(AnchorPointList anchorPointList) {
 		this.setPreferredSize(new Dimension(400,300));
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK), BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-		this.setLayout(null);				// jak by coś nie działało z punktami stanowiska to pewnie chodzi o tą linijke
+		this.setLayout(null);				
 		this.addMouseListener(this);
 		this.anchorPointList = anchorPointList;
 	}
 	
 	void addAnchorPoint(int x, int y) {
+		if(anchorPointList.getAnchorPointList().size()>0)
+			n = anchorPointList.getAnchorPointList().size();
+		
 		AnchorPoint tmpAnchorPoint = new AnchorPoint(x, y, n);
-		n++;
+		//n++;
 		tmpAnchorPoint.setParamPanel(paramPanel);
 		tmpAnchorPoint.setBounds(x, y, 16, 16);
 		this.add(tmpAnchorPoint);
 		anchorPointList.addAnchorPointToAnchorPointList(tmpAnchorPoint);	
-		//TestButton testbutton = new TestButton();
-		//testbutton.setBounds(x, y, 33, 33);
-		//this.add(testbutton);
 	}
 	void addAnchor(Anchor anchor) {
 		this.anchor = anchor;
@@ -78,20 +78,26 @@ public void changeDrawspaceColor() {
 		repaint();
 		resultPanel.setAnchor(anchor);
 	}
-	/*
-	public void paint(Graphics g) 
-    { 
+
+	public void paint(Graphics g) {
+	 	super.paint(g);
 		this.add(new JLabel(" "));
 		for (int i=0; i<anchorPointList.getAnchorPointList().size();i++) {
 			AnchorPoint tmp = anchorPointList.getAnchorPointList().get(i);
 			tmp.setBounds(tmp.getX(), tmp.getY(), 16, 16);
 			this.add(tmp);
 		} 
-		g.drawLine(10, 10, 100, 100);
-        // draw and display the line 
-		//if(anchor != null)
-			//g.drawLine(anchor.stAnchorPoint.getX(), anchor.stAnchorPoint.getY(), anchor.masterPoint.getX(), anchor.masterPoint.getY()); 
-    }  */
+		if(AnchorList.getInstance().getAnchorList().size()>0) {
+			for(Anchor anchor : AnchorList.getInstance().getAnchorList()) {
+				if(anchor != null) {
+					g.drawLine(anchor.stAnchorPoint.getX()+(int)(0.5*anchor.stAnchorPoint.getWidth()), anchor.stAnchorPoint.getY()+anchor.stAnchorPoint.getHeight()
+							, anchor.masterPoint.getX() + (int)(0.5*anchor.masterPoint.getWidth()), anchor.masterPoint.getY()); 
+					g.drawLine(anchor.ndAnchorPoint.getX()+(int)(0.5*anchor.ndAnchorPoint.getWidth()), anchor.ndAnchorPoint.getY()+anchor.ndAnchorPoint.getHeight()
+					, anchor.masterPoint.getX() + (int)(0.5*anchor.masterPoint.getWidth()), anchor.masterPoint.getY());
+				}
+			}
+		}
+    }  
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {

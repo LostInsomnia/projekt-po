@@ -23,13 +23,17 @@ public class Anchor {
 		this.stAnchorPoint = stAnchorPoint;
 		this.ndAnchorPoint = ndAnchorPoint;
 		this.material = material;
+		stAnchorPoint.setIsMaster(false);
+		ndAnchorPoint.setIsMaster(false);
+		stAnchorPoint.setDegree(Math.max(stAnchorPoint.getDegree(), ndAnchorPoint.getDegree()));
+		ndAnchorPoint.setDegree(Math.max(stAnchorPoint.getDegree(), ndAnchorPoint.getDegree()));
 		
 		this.anchorPointList = anchorPointList;
 		setMaterialParameters(material);
-		setMasterPointParameters();
-	}
+		setMasterPointParameters(Math.max(stAnchorPoint.getDegree(), ndAnchorPoint.getDegree()));
+		AnchorList.getInstance().getAnchorList().add(this);	
+		}
 	void setMaterialParameters(String material) {
-		System.out.print(material);
 		if (material.equals("linka 7mm wed\u0142ug normy EN 564:2014")|| material.equals("Standard EN 564:2014 7 mm cordelette") || material.equals("linka 7mm wed\\u0142ug normy EN 564:2014")) {
 			anchorMaterial = AnchorMaterial.cordelette7mm;
 		}
@@ -54,12 +58,13 @@ public class Anchor {
 		brakingStrength = Float.parseFloat(properties.getProperty("brakingStrength")) ;
 		parameterK =  Float.parseFloat(properties.getProperty("parameterK"));
 	}
-	void setMasterPointParameters() {
+	void setMasterPointParameters(int degree) {
 		masterPoint = new AnchorPoint(0, 0, anchorPointList.getAnchorPointList().size());
 		masterPoint.setX((int)(0.5*(stAnchorPoint.getX()+ndAnchorPoint.getX())));
 		masterPoint.setY(Math.max((int)(0.5*(stAnchorPoint.getY()+ndAnchorPoint.getY())+200), (int)(0.5*(stAnchorPoint.getY()+ndAnchorPoint.getY()))));
 		masterPoint.setIsMaster(true);
 		anchorPointList.addAnchorPointToAnchorPointList(masterPoint);
+		masterPoint.setDegree(degree);
 	}
 	public AnchorPoint getStAnchorPoint() {
 		return stAnchorPoint;

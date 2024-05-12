@@ -28,7 +28,7 @@ public class Window extends JFrame {
 		
 		ParamPanel paramPanel = new ParamPanel();
 		this.add(paramPanel, BorderLayout.LINE_START);
-		ResultsPanel resultsPanel = new ResultsPanel();
+		ResultsPanel resultsPanel = new ResultsPanel(anchorPointList);
 		this.add(resultsPanel, BorderLayout.LINE_END);
 
 		

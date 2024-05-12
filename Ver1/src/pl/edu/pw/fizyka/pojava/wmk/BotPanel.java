@@ -96,6 +96,7 @@ public void changeBotColor() {
 				drawspace.removeAll();
 				drawspace.repaint();
 				drawspace.revalidate();
+				AnchorList.getInstance().getAnchorList().clear();
 			}
 		};
 		clear.addActionListener(clearDrawspace);

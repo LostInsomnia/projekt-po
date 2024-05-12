@@ -1,5 +1,6 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,7 @@ public class AddAnchorWindow extends JFrame{
 	Locale locale;
 	ResourceBundle messages;
 	AnchorPointList anchorPointList;
-	String chosenMaterial = null;
+	String chosenMaterial, chosenType = null;
 	DrawspacePanel drawspace;
 	ArrayList<Integer> chosenPoints = new ArrayList<>();
 	AnchorMaterial anchorMaterial;
@@ -81,22 +82,41 @@ public class AddAnchorWindow extends JFrame{
 	public class CenterPanel extends JPanel{
 		public CenterPanel() {
 			// TODO Auto-generated constructor stub
-			this.setLayout(new FlowLayout());
+			JPanel topPanel = new JPanel(new FlowLayout());
+			JPanel bottomPanel = new JPanel(new FlowLayout());
+			
+			this.setLayout(new BorderLayout());
+			this.add(topPanel, BorderLayout.PAGE_START);
+			this.add(bottomPanel, BorderLayout.PAGE_END);
 			JLabel anchorMaterialLabel = new JLabel(messages.getString("anchorMaterialLabelMessage"));
-			this.add(anchorMaterialLabel);
+			topPanel.add(anchorMaterialLabel);
 			String anchorMaterials[]= {messages.getString("cordelette7mm"),messages.getString("sling")};
 			JComboBox comboBox = new JComboBox(anchorMaterials);
-			ActionListener listener = new ActionListener() {
+			ActionListener chosenMaterialListener = new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					chosenMaterial = (String) comboBox.getSelectedItem();
-					anchorMaterialLabel.setText(chosenMaterial);
+					//anchorMaterialLabel.setText(chosenMaterial);
 					
 				}
 			};
-			comboBox.addActionListener(listener);
-			this.add(comboBox);
+			comboBox.addActionListener(chosenMaterialListener);
+			JLabel chosenTypeLabel = new JLabel(messages.getString("chosenAnchorTypeMessage"));
+			bottomPanel.add(chosenTypeLabel);
+			topPanel.add(comboBox);
+			String anchorTypes[] = {messages.getString("selfEqWithMX"), messages.getString("selfEGWithoutMX")};
+			JComboBox anchorTypeComboBox = new JComboBox(anchorTypes);
+			ActionListener chosenTypeListener = new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					chosenType = (String) anchorTypeComboBox.getSelectedItem();
+					
+				}
+			};
+			anchorTypeComboBox.addActionListener(chosenTypeListener);
+			bottomPanel.add(anchorTypeComboBox);
 			
 		}
 	}

@@ -20,6 +20,7 @@ public class ResultsPanel extends JPanel{
 	JButton calculateResultsButton;
 	LanguageChange languageChange;
 	Anchor anchor;
+	AnchorPointList anchorPointList;
 	double F1, F2;
 public void setLanguageChange(LanguageChange languageChange) {
 		this.languageChange = languageChange;
@@ -37,8 +38,8 @@ public void changeResultColor() {
 		calculateResultsButton.setForeground(ColorScheme.getColorScheme()[2]);
 		revalidate();
 	}
-	public ResultsPanel(){
-		
+	public ResultsPanel(AnchorPointList anchorPointList){
+		this.anchorPointList = anchorPointList;
 		calculateResultsButton = new JButton("calculate");
 		JLabel resultLabel = new JLabel();
 		this.add(resultLabel);
@@ -51,22 +52,6 @@ public void changeResultColor() {
 			}
 		};
 		calculateResultsButton.addActionListener(resultsButtonListener);
-		//FileInputStream file = null;
-		//calculateResultsButton.setText(messages.getString("calculateButtonMessage"));
-		/* try {
-			file = new FileInputStream("/home/adasus/eclipse-workspace/poprojekt/pl/edu/pw/fizyka/pojava/wmk/config/messages_pl_PL.properties");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Properties properties = new Properties();
-		try {
-			properties.load(file);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	*/
-		//System.out.println(properties.getProperty("calculateButtonMessage"));
 		updateLanguageChoice(new Locale("pl", "PL"));
 		this.add(calculateResultsButton);
 		il8n();
@@ -85,6 +70,7 @@ public void changeResultColor() {
 		int yc =  anchor.getMasterPoint().getY();
 		
 		F1 = (xc-x2)*Math.sqrt((double)(Math.pow(xc, 2)+Math.pow(y1, 2)))/(-x2*y1+xc*(y1+y2));
+		System.out.print(x1+" "+x2+" "+y1+" "+y2+" "+xc+" "+yc+" ");
 	}
 	public Anchor getAnchor() {
 		return anchor;

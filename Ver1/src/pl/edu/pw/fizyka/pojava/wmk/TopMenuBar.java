@@ -60,7 +60,8 @@ public class TopMenuBar extends JMenuBar{
 	}
 	
 	
-	public TopMenuBar(AnchorPointList anch){
+	public TopMenuBar(AnchorPointList anchorPointList) {
+		// TODO Auto-generated constructor stub
 		menu = new JMenu();
 		this.add(menu);
 		importData = new JMenuItem();
@@ -92,9 +93,9 @@ public class TopMenuBar extends JMenuBar{
 				try {
 					BufferedWriter writer = new BufferedWriter(new FileWriter("savedData.txt"));
 					writer.write("Point Number" + "\t" + "Breaking Strength" +"\t"+"X Pos"+ "\t"+ "YPos"+ "\n" );
-					for(int i = 0; i<anch.getAnchorPointList().size(); i++) {
-						writer.write(("   " + i + "\t" +Float.toString(anch.getAnchorPointList().get(i).getBreakingStrength())+"\t"+anch.getAnchorPointList().get(i).getX()
-								+"\t"+anch.getAnchorPointList().get(i).getY()+"\n"));
+					for(int i = 0; i<anchorPointList.getAnchorPointList().size(); i++) {
+						writer.write(("   " + i + "\t" +Float.toString(anchorPointList.getAnchorPointList().get(i).getBreakingStrength())+"\t"+anchorPointList.getAnchorPointList().get(i).getX()
+								+"\t"+anchorPointList.getAnchorPointList().get(i).getY()+"\n"));
 						
 					}
 					writer.close();

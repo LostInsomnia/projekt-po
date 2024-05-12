@@ -15,6 +15,7 @@ import javax.swing.JButton;
 public class AnchorPoint extends JButton {
 	ParamPanel paramPanel;
 	protected int x, y, n;
+	int degree = 0;
 	protected float breakingStrength = 20;		// in kN
 	protected Boolean isMaster = false;
 	ActionListener listener = new ActionListener() {
@@ -65,6 +66,15 @@ public class AnchorPoint extends JButton {
 			  }
 		
 	}
+	
+	public int getDegree() {
+		return degree;
+	}
+
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
 	public Boolean getIsMaster() {
 		return isMaster;
 	}
