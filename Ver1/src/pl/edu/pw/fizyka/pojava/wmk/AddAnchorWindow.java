@@ -14,12 +14,26 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 //Author: Adam Pempkowiak
 public class AddAnchorWindow extends JFrame{
 	public void setAnchorPointList(AnchorPointList anchorPointList) {
 		this.anchorPointList = anchorPointList;
 	}
 
+	TopPanel topPanel;
+	CenterPanel centerPanel;
+	BottomPanel bottomPanel;
+	JPanel topCenterPanel;
+	JPanel bottomCenterPanel;
+	JLabel message;
+	JLabel infoLabel;
+	JButton addAnchor;
+	JButton cancel;
+	JLabel errorMessageLabel;
+	JLabel anchorMaterialLabel;
+	JLabel chosenTypeLabel;
+	
 	LanguageChange languageChange;
 	Locale locale;
 	ResourceBundle messages;
@@ -35,29 +49,37 @@ public class AddAnchorWindow extends JFrame{
 	
 	public AddAnchorWindow(Locale locale, DrawspacePanel drawspace) {
 		// TODO Auto-generated constructor stub
+		this.setAlwaysOnTop(true);
 		this.setVisible(true);
 		this.setSize(480,360);
+		this.setBackground(ColorScheme.getColorScheme()[0]);
 		this.locale = locale;
 		this.drawspace = drawspace;
 		this.anchorPointList = drawspace.getAnchorPointList();
 		messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new GridLayout(3, 1));
-		TopPanel topPanel = new TopPanel();
+		topPanel = new TopPanel();
 		this.add(topPanel);
 		
-		CenterPanel centerPanel = new CenterPanel();
+		centerPanel = new CenterPanel();
 		this.add(centerPanel);
-		BottomPanel bottomPanel = new BottomPanel();
+		bottomPanel = new BottomPanel();
 		this.add(bottomPanel);
 		}
 	
 	public class TopPanel extends JPanel{
 		public TopPanel() {
 			// TODO Auto-generated constructor stub
-			this.add(new JLabel(messages.getString("choosePointsForAnchorMessage")));
+			message = new JLabel(messages.getString("choosePointsForAnchorMessage"), SwingConstants.CENTER);
+			message.setForeground(ColorScheme.getColorScheme()[2]);
+			this.add(message);
+			//this.add(new JLabel(messages.getString("choosePointsForAnchorMessage")));
 			this.setLayout(new GridLayout(anchorPointList.getAnchorPointList().size()+1, 1));
-			JLabel infoLabel = new JLabel();
+			this.setBackground(ColorScheme.getColorScheme()[0]);
+			this.setForeground(ColorScheme.getColorScheme()[3]);
+			infoLabel = new JLabel();
+			infoLabel.setForeground(ColorScheme.getColorScheme()[2]);
 			this.add(infoLabel);
 			
 			for(int i = 0; i<anchorPointList.getAnchorPointList().size(); i++) {
@@ -82,14 +104,21 @@ public class AddAnchorWindow extends JFrame{
 	public class CenterPanel extends JPanel{
 		public CenterPanel() {
 			// TODO Auto-generated constructor stub
-			JPanel topPanel = new JPanel(new FlowLayout());
-			JPanel bottomPanel = new JPanel(new FlowLayout());
+			topCenterPanel = new JPanel(new FlowLayout());
+			bottomCenterPanel = new JPanel(new FlowLayout());
 			
 			this.setLayout(new BorderLayout());
-			this.add(topPanel, BorderLayout.PAGE_START);
-			this.add(bottomPanel, BorderLayout.PAGE_END);
-			JLabel anchorMaterialLabel = new JLabel(messages.getString("anchorMaterialLabelMessage"));
-			topPanel.add(anchorMaterialLabel);
+			this.add(topCenterPanel, BorderLayout.PAGE_START);
+			this.add(bottomCenterPanel, BorderLayout.PAGE_END);
+			this.setBackground(ColorScheme.getColorScheme()[0]);
+			this.setForeground(ColorScheme.getColorScheme()[2]);
+			topCenterPanel.setBackground(ColorScheme.getColorScheme()[0]);
+			topCenterPanel.setForeground(ColorScheme.getColorScheme()[2]);
+			bottomCenterPanel.setBackground(ColorScheme.getColorScheme()[0]);
+			bottomCenterPanel.setForeground(ColorScheme.getColorScheme()[2]);
+			anchorMaterialLabel = new JLabel(messages.getString("anchorMaterialLabelMessage"));
+			anchorMaterialLabel.setForeground(ColorScheme.getColorScheme()[2]);
+			topCenterPanel.add(anchorMaterialLabel);
 			String anchorMaterials[]= {messages.getString("cordelette7mm"),messages.getString("sling")};
 			JComboBox comboBox = new JComboBox(anchorMaterials);
 			ActionListener chosenMaterialListener = new ActionListener() {
@@ -102,9 +131,9 @@ public class AddAnchorWindow extends JFrame{
 				}
 			};
 			comboBox.addActionListener(chosenMaterialListener);
-			JLabel chosenTypeLabel = new JLabel(messages.getString("chosenAnchorTypeMessage"));
-			bottomPanel.add(chosenTypeLabel);
-			topPanel.add(comboBox);
+			chosenTypeLabel = new JLabel(messages.getString("chosenAnchorTypeMessage"));
+			bottomCenterPanel.add(chosenTypeLabel);
+			topCenterPanel.add(comboBox);
 			String anchorTypes[] = {messages.getString("selfEqWithMX"), messages.getString("selfEGWithoutMX")};
 			JComboBox anchorTypeComboBox = new JComboBox(anchorTypes);
 			ActionListener chosenTypeListener = new ActionListener() {
@@ -116,7 +145,7 @@ public class AddAnchorWindow extends JFrame{
 				}
 			};
 			anchorTypeComboBox.addActionListener(chosenTypeListener);
-			bottomPanel.add(anchorTypeComboBox);
+			bottomCenterPanel.add(anchorTypeComboBox);
 			
 		}
 	}
@@ -125,9 +154,14 @@ public class AddAnchorWindow extends JFrame{
 		public BottomPanel() {
 			// TODO Auto-generated constructor stub
 			this.setLayout(new FlowLayout());
-			JLabel errorMessageLabel = new JLabel();
+			errorMessageLabel = new JLabel();
+			this.setBackground(ColorScheme.getColorScheme()[0]);
+			this.setForeground(ColorScheme.getColorScheme()[2]);
 			this.add(errorMessageLabel);
-			JButton cancel = new JButton(messages.getString("cancelMessage"));
+			cancel = new JButton(messages.getString("cancelMessage"));
+			cancel.setBackground(ColorScheme.getColorScheme()[3]);
+			cancel.setForeground(ColorScheme.getColorScheme()[2]);
+
 			cancel.addActionListener(new ActionListener() {
 				
 				@Override
@@ -137,7 +171,9 @@ public class AddAnchorWindow extends JFrame{
 				}
 			});
 			this.add(cancel);
-			JButton addAnchor = new JButton(messages.getString("addAnchorButtonMessage"));
+			addAnchor = new JButton(messages.getString("addAnchorButtonMessage"));
+			addAnchor.setBackground(ColorScheme.getColorScheme()[3]);
+			addAnchor.setForeground(ColorScheme.getColorScheme()[2]);
 			ActionListener addAnchorListener = new ActionListener() {
 				
 				@Override
@@ -154,6 +190,31 @@ public class AddAnchorWindow extends JFrame{
 			};
 			addAnchor.addActionListener(addAnchorListener);
 			this.add(addAnchor);
+		}
+	}
+	
+	public void changeWindowColor() {
+		if(topPanel != null) {
+			topPanel.setBackground(ColorScheme.getColorScheme()[0]);
+			topPanel.setForeground(ColorScheme.getColorScheme()[2]);
+			addAnchor.setBackground(ColorScheme.getColorScheme()[3]);
+			addAnchor.setForeground(ColorScheme.getColorScheme()[2]);
+			cancel.setBackground(ColorScheme.getColorScheme()[3]);
+			cancel.setForeground(ColorScheme.getColorScheme()[2]);
+			message.setForeground(ColorScheme.getColorScheme()[2]);
+			message.setForeground(ColorScheme.getColorScheme()[2]);
+			infoLabel.setForeground(ColorScheme.getColorScheme()[2]);
+			topCenterPanel.setBackground(ColorScheme.getColorScheme()[0]);
+			topCenterPanel.setForeground(ColorScheme.getColorScheme()[2]);
+			bottomCenterPanel.setBackground(ColorScheme.getColorScheme()[0]);
+			bottomCenterPanel.setForeground(ColorScheme.getColorScheme()[2]);
+			addAnchor.setBackground(ColorScheme.getColorScheme()[3]);
+			addAnchor.setForeground(ColorScheme.getColorScheme()[2]);
+			bottomPanel.setBackground(ColorScheme.getColorScheme()[0]);
+			centerPanel.setBackground(ColorScheme.getColorScheme()[0]);
+			anchorMaterialLabel.setForeground(ColorScheme.getColorScheme()[2]);
+			chosenTypeLabel.setForeground(ColorScheme.getColorScheme()[2]);
+			repaint();
 		}
 	}
 }

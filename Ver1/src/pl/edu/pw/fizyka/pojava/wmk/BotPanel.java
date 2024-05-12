@@ -16,6 +16,7 @@ public class BotPanel extends JPanel {
 	JButton addAnchor;
 	JButton startSim;
 	JButton clear;
+	AddAnchorWindow addAnchorWindow;
 	LanguageChange languageChange;
 	Locale locale = new Locale("pl","PL");
 	
@@ -46,6 +47,8 @@ public void changeBotColor() {
 		
 		clear.setBackground(ColorScheme.getColorScheme()[3]);
 		clear.setForeground(ColorScheme.getColorScheme()[2]);
+		
+		if(addAnchorWindow != null) addAnchorWindow.changeWindowColor();
 		revalidate();
 	}
 	
@@ -105,7 +108,8 @@ public void changeBotColor() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddAnchorWindow addAnchorWindow = new AddAnchorWindow(locale, drawspace);
+				addAnchorWindow = new AddAnchorWindow(locale, drawspace);
+				//addAnchorWindow.setBackground(ColorScheme.getColorScheme()[0]);
 				//addAnchorWindow.setAnchorPointList(drawspace.getAnchorPointList());
 			}
 		};
@@ -123,4 +127,5 @@ public void changeBotColor() {
 	}
 
 
+	
 }
