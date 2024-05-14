@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -109,6 +111,9 @@ public void changeBotColor() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addAnchorWindow = new AddAnchorWindow(locale, drawspace);
+				ExecutorService exec =  Executors.newFixedThreadPool(1);
+				exec.execute(addAnchorWindow);
+				
 				//addAnchorWindow.setBackground(ColorScheme.getColorScheme()[0]);
 				//addAnchorWindow.setAnchorPointList(drawspace.getAnchorPointList());
 			}
