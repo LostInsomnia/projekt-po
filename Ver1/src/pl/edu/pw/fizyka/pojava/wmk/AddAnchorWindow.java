@@ -165,6 +165,7 @@ public class AddAnchorWindow extends JFrame implements Runnable {
                     if (chosenPoints.size() > 1 && chosenMaterial != null) {
                         drawspace.addAnchor(new Anchor(anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size() - 1)),
                                 anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size() - 2)), chosenMaterial, anchorPointList));
+                        
                         dispose();
                     } else {
                         errorMessageLabel.setText(messages.getString("errorMessageLabel"));

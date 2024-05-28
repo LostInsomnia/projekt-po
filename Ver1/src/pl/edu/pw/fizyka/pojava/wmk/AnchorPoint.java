@@ -6,6 +6,10 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -13,6 +17,9 @@ import javax.swing.JButton;
 //Made by: Adam Pempkowiak
 //Color change: Kacper Szymczak
 public class AnchorPoint extends JButton {
+
+   
+
 	ParamPanel paramPanel;
 	protected int x, y, n;
 	int degree = 0;
@@ -65,6 +72,7 @@ public class AnchorPoint extends JButton {
 			    System.out.println(ex);
 			  }
 		
+		 
 	}
 	
 	public int getDegree() {
@@ -87,19 +95,6 @@ public class AnchorPoint extends JButton {
 		return n;
 	}
 
-	/*
-	protected void paintBorder(Graphics g) {
-	    g.setColor(getForeground());
-	    g.drawOval(0, 0, 15, 15);
-	  }
-		
-	 protected void paintComponent(Graphics g) {
-			 
-	  //  g.setColor(currentColor);
-	   // g.fillOval(0, 0, 14, 14);
-	    super.paintComponent(g);
-	  }
-*/
 	public int getX() {
 		return x;
 	}
