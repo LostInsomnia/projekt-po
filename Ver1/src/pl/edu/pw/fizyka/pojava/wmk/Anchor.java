@@ -8,10 +8,17 @@ import java.util.Properties;
 //Author: Adam Pempkowiak
 public class Anchor {
 	AnchorPoint stAnchorPoint, ndAnchorPoint, masterPoint;
-	String material;
-	float brakingStrength,  parameterK, length;
+	String material, anchorType;
+	float brakingStrength, forceOnAnchor, parameterK, length;
+	
 	double F1, F2;
+	String anchorFailed = "";
 	AnchorPointList anchorPointList;
+	
+	public float getBrakingStrength() {
+		return brakingStrength;
+	}
+
 	AnchorMaterial anchorMaterial;
 	enum AnchorMaterial{
 		cordelette7mm,
@@ -19,11 +26,12 @@ public class Anchor {
 	}
 	
 	
-	public Anchor(AnchorPoint stAnchorPoint, AnchorPoint ndAnchorPoint, String material, AnchorPointList anchorPointList) {
+	public Anchor(AnchorPoint stAnchorPoint, AnchorPoint ndAnchorPoint, String material, String anchorType, AnchorPointList anchorPointList) {
 		// TODO Auto-generated constructor stub
 		this.stAnchorPoint = stAnchorPoint;
 		this.ndAnchorPoint = ndAnchorPoint;
 		this.material = material;
+		this.anchorType = anchorType;
 		//stAnchorPoint.setIsMaster(false);
 		//ndAnchorPoint.setIsMaster(false);
 		stAnchorPoint.setDegree(Math.max(stAnchorPoint.getDegree(), ndAnchorPoint.getDegree()));
@@ -58,6 +66,31 @@ public class Anchor {
 		}	
 		brakingStrength = Float.parseFloat(properties.getProperty("brakingStrength")) ;
 		parameterK =  Float.parseFloat(properties.getProperty("parameterK"));
+		System.out.print(brakingStrength);
+	}
+	public AnchorMaterial getAnchorMaterial() {
+		return anchorMaterial;
+	}
+	void checkIfAnchorFailed() {
+		forceOnAnchor = Math.max(stAnchorPoint.getForceOnPoint(), ndAnchorPoint.getForceOnPoint());
+		if (brakingStrength<= stAnchorPoint.getForceOnPoint() && brakingStrength<=ndAnchorPoint.getForceOnPoint())
+			anchorFailed = "+";
+		if (brakingStrength<= stAnchorPoint.getForceOnPoint() || brakingStrength<=ndAnchorPoint.getForceOnPoint()) {
+			if (anchorType.equals("selfEqWithMX"))
+				anchorFailed = "+/-";
+			if (anchorType.equals("selfEqWithoutMX"))
+				anchorFailed = "+";
+		}
+			 
+		if (!(brakingStrength<= stAnchorPoint.getForceOnPoint() && brakingStrength<=ndAnchorPoint.getForceOnPoint()))
+			anchorFailed = "-"; 
+		
+	}
+	public float getForceOnAnchor() {
+		return forceOnAnchor;
+	}
+	public String getAnchorFailed() {
+		return anchorFailed;
 	}
 	void setMasterPointParameters(int degree) {
 		masterPoint = new AnchorPoint(0, 0, anchorPointList.getAnchorPointList().size());

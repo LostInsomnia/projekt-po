@@ -1,5 +1,7 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -14,16 +16,22 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 //Made by: Adam Pempkowiak
 
 public class ResultsPanel extends JPanel{
+	double force;
+	JTextField forceField;
 	JButton calculateResultsButton;
+	ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", new Locale("pl","PL"));
 	LanguageChange languageChange;
 	Anchor anchor;
+	JLabel forceLabel;
 	JTextArea resultsField = new JTextArea();
 	AnchorPointList anchorPointList;
 	double F1, F2;
+	AnchorList anchorList;
 public void setLanguageChange(LanguageChange languageChange) {
 		this.languageChange = languageChange;
 		languageChange.setResultsPanel(this);
@@ -42,9 +50,18 @@ public void changeResultColor() {
 	}
 	public ResultsPanel(AnchorPointList anchorPointList){
 		this.anchorPointList = anchorPointList;
-		calculateResultsButton = new JButton("calculate");
+		this.setLayout(new BorderLayout());
+		forceField = new JTextField(" ");
 		
-		this.add(resultsField);
+		calculateResultsButton = new JButton("calculate");
+		JPanel topPanel = new JPanel(new GridLayout(3,1));
+		JPanel bottomPanel = new JPanel();
+		forceLabel = new JLabel(messages.getString("forceLabelMessage"));
+		topPanel.add(forceLabel);
+		topPanel.add(forceField);
+		this.add(bottomPanel, BorderLayout.PAGE_END);
+		this.add(topPanel, BorderLayout.PAGE_START);
+		bottomPanel.add(resultsField);
 		ActionListener resultsButtonListener = new ActionListener() {
 			
 			@Override
@@ -56,55 +73,61 @@ public void changeResultColor() {
 		};
 		calculateResultsButton.addActionListener(resultsButtonListener);
 		updateLanguageChoice(new Locale("pl", "PL"));
-		this.add(calculateResultsButton);
+		topPanel.add(calculateResultsButton);
 		il8n();
 	}
 	public void updateLanguageChoice(Locale locale) {
-		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
+		messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
 		calculateResultsButton.setText(messages.getString("calculateButtonMessage"));
+		forceLabel.setText(messages.getString("forceLabelMessage"));
 	}
 	
 	public void claculateResult() {
-		AnchorList anchorList = AnchorList.getInstance();
+		force = Double.parseDouble(forceField.getText());
+		anchorList = AnchorList.getInstance();
 		int size = anchorList.getAnchorList().size();
 		int n=0;
 		int maxDegree=0;
-	/*	for (int i=0;i<size;i++) {
-			if (anchorPointList.getAnchorPointList().get(i).getDegree()>=size) {
-				size = anchorPointList.getAnchorPointList().get(i).getDegree();
-				n=anchorPointList.getAnchorPointList().get(i).getN();;
-			}
-			if (anchorPointList.getAnchorPointList().get(i).getIsMaster()) {
+		if(force >0) {
+			for (int i=0;i<size;i++) {
+				if (anchorList.getAnchorList().get(i).getMasterPoint().getDegree()>= maxDegree) {
+					maxDegree = anchorList.getAnchorList().get(i).getMasterPoint().getDegree();
+					n=i;
+				}
 				
 			}
-		}
-		*/
-		for (int i=0;i<size;i++) {
-			if (anchorList.getAnchorList().get(i).getMasterPoint().getDegree()>= maxDegree) {
-				maxDegree = anchorList.getAnchorList().get(i).getMasterPoint().getDegree();
-				n=i;
-			}
 			
-		}
-		
-			anchorList.getAnchorList().get(n).calculateResults(20);
-			anchorList.getAnchorList().get(n).getMasterPoint().setForceOnPoint(20);
-		for (int i=maxDegree-1; i>0;i--) {
-			for (int j=0;j<size;j++) {
-				if(anchorList.getAnchorList().get(j).getMasterPoint().getIsMaster()) {
-					anchorList.getAnchorList().get(j).calculateResults(anchorList.getAnchorList().get(j).getMasterPoint().getForceOnPoint());
+				anchorList.getAnchorList().get(n).calculateResults(force);
+				anchorList.getAnchorList().get(n).getMasterPoint().setForceOnPoint((float)force);
+			for (int i=maxDegree-1; i>0;i--) {
+				for (int j=0;j<size;j++) {
+					if(anchorList.getAnchorList().get(j).getMasterPoint().getIsMaster()) {
+						anchorList.getAnchorList().get(j).calculateResults(anchorList.getAnchorList().get(j).getMasterPoint().getForceOnPoint());
+					}
 				}
 			}
+			for (int i=0;i<anchorPointList.getAnchorPointList().size();i++) {
+				anchorPointList.getAnchorPointList().get(i).checkIfPointFailed();
+			}
+			for (int i=0;i<size;i++) {
+				anchorList.getAnchorList().get(i).checkIfAnchorFailed();
+			}
 		}
-		
-	
-		
+		else {
+			forceField.setText("");
+			forceLabel.setText(messages.getString("forceErrorMessage"));
+		}
 	}
 	public void displayResults() {
-		resultsField.setText("punkt| siła| czy wytrzymał| wytrzymałość"+ "\n");
+		resultsField.setText(messages.getString("resultsLabelPoints")+ "\n");
 		for (int i=0; i<anchorPointList.getAnchorPointList().size();i++)
 			resultsField.append(Integer.toString( anchorPointList.getAnchorPointList().get(i).getDegree())+ " | "+Integer.toString( anchorPointList.getAnchorPointList().get(i).getN()+1)+ " | "+Float.toString(anchorPointList.getAnchorPointList().get(i).getForceOnPoint())
-			+" | " +" | "+Float.toString( anchorPointList.getAnchorPointList().get(i).getBreakingStrength()) + "\n");
+			 +" | "+Float.toString( anchorPointList.getAnchorPointList().get(i).getBreakingStrength()) + " | "+ anchorPointList.getAnchorPointList().get(i).getPointFailed() + "\n");
+		resultsField.append(messages.getString("resultsLabelAnchors")+ "\n");
+		for (int i=0; i<anchorList.getAnchorList().size();i++)
+			resultsField.append(Integer.toString(anchorList.getAnchorList().get(i).getStAnchorPoint().getN()) + ";"+ Integer.toString(anchorList.getAnchorList().get(i).getNdAnchorPoint().getN())+ "|"
+				+ messages.getString( anchorList.getAnchorList().get(i).getAnchorMaterial().name())+ "|"+ Float.toString(anchorList.getAnchorList().get(i).getBrakingStrength())+ "|"
+					+Float.toString(anchorList.getAnchorList().get(i).getForceOnAnchor())+"|"+ anchorList.getAnchorList().get(i).getAnchorFailed()+"\n");
 	}
 	
 	private  void il8n() {
