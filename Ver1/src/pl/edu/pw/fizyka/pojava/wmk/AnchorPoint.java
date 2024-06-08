@@ -23,12 +23,23 @@ public class AnchorPoint extends JButton {
 	ParamPanel paramPanel;
 	protected int x, y, n;
 	int degree = 0;
-	protected float breakingStrength = 20;		// in kN
+	AnchorPoint an = this;
+	float forceOnPoint=0;
+	public float getForceOnPoint() {
+		return forceOnPoint;
+	}
+
+	public void setForceOnPoint(float forceOnPoint) {
+		this.forceOnPoint = forceOnPoint;
+	}
+
+	float breakingStrength = 20;		// in kN
 	protected Boolean isMaster = false;
 	ActionListener listener = new ActionListener() {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//paramPanel.displayPointData(this);
+		paramPanel.setAnchorPoint(an);
 		paramPanel.displayPointData( breakingStrength);
 	}
 	};
@@ -58,7 +69,8 @@ public class AnchorPoint extends JButton {
 		//setContentAreaFilled(false);  
 		this.addActionListener(listener);
 		this.setMargin(new Insets(0, 0, 0, 0));
-		 
+		//paramPanel = new ParamPanel(breakingStrength);
+		
 		 try {
 			    Image img = ImageIO.read(getClass().getResource("images/anchor_point_icon.png"));
 			    this.setIcon(new ImageIcon(img));

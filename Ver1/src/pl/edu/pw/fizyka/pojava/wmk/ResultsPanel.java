@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 //Made by: Adam Pempkowiak
 
@@ -20,6 +21,7 @@ public class ResultsPanel extends JPanel{
 	JButton calculateResultsButton;
 	LanguageChange languageChange;
 	Anchor anchor;
+	JTextArea resultsField = new JTextArea();
 	AnchorPointList anchorPointList;
 	double F1, F2;
 public void setLanguageChange(LanguageChange languageChange) {
@@ -41,13 +43,14 @@ public void changeResultColor() {
 	public ResultsPanel(AnchorPointList anchorPointList){
 		this.anchorPointList = anchorPointList;
 		calculateResultsButton = new JButton("calculate");
-		JLabel resultLabel = new JLabel();
-		this.add(resultLabel);
+		
+		this.add(resultsField);
 		ActionListener resultsButtonListener = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				resultLabel.setText("force on st point if force on masterPoint is 1 kN" + Double.toString(F1)+ "kN");
+				claculateResult();
+				displayResults();
 				
 			}
 		};
@@ -61,24 +64,49 @@ public void changeResultColor() {
 		calculateResultsButton.setText(messages.getString("calculateButtonMessage"));
 	}
 	
-	public void claculateResult(Anchor anchor) {
-		int x1 = anchor.getStAnchorPoint().getX();
-		int y1 = anchor.getStAnchorPoint().getY();
-		int x2 = anchor.getNdAnchorPoint().getX();
-		int y2 = anchor.getNdAnchorPoint().getY();
-		int xc =  anchor.getMasterPoint().getX();
-		int yc =  anchor.getMasterPoint().getY();
+	public void claculateResult() {
+		AnchorList anchorList = AnchorList.getInstance();
+		int size = anchorList.getAnchorList().size();
+		int n=0;
+		int maxDegree=0;
+	/*	for (int i=0;i<size;i++) {
+			if (anchorPointList.getAnchorPointList().get(i).getDegree()>=size) {
+				size = anchorPointList.getAnchorPointList().get(i).getDegree();
+				n=anchorPointList.getAnchorPointList().get(i).getN();;
+			}
+			if (anchorPointList.getAnchorPointList().get(i).getIsMaster()) {
+				
+			}
+		}
+		*/
+		for (int i=0;i<size;i++) {
+			if (anchorList.getAnchorList().get(i).getMasterPoint().getDegree()>= maxDegree) {
+				maxDegree = anchorList.getAnchorList().get(i).getMasterPoint().getDegree();
+				n=i;
+			}
+			
+		}
 		
-		F1 = (xc-x2)*Math.sqrt((double)(Math.pow(xc, 2)+Math.pow(y1, 2)))/(-x2*y1+xc*(y1+y2));
-		System.out.print(x1+" "+x2+" "+y1+" "+y2+" "+xc+" "+yc+" ");
+			anchorList.getAnchorList().get(n).calculateResults(20);
+			anchorList.getAnchorList().get(n).getMasterPoint().setForceOnPoint(20);
+		for (int i=maxDegree-1; i>0;i--) {
+			for (int j=0;j<size;j++) {
+				if(anchorList.getAnchorList().get(j).getMasterPoint().getIsMaster()) {
+					anchorList.getAnchorList().get(j).calculateResults(anchorList.getAnchorList().get(j).getMasterPoint().getForceOnPoint());
+				}
+			}
+		}
+		
+	
+		
 	}
-	public Anchor getAnchor() {
-		return anchor;
+	public void displayResults() {
+		resultsField.setText("punkt| siła| czy wytrzymał| wytrzymałość"+ "\n");
+		for (int i=0; i<anchorPointList.getAnchorPointList().size();i++)
+			resultsField.append(Integer.toString( anchorPointList.getAnchorPointList().get(i).getDegree())+ " | "+Integer.toString( anchorPointList.getAnchorPointList().get(i).getN()+1)+ " | "+Float.toString(anchorPointList.getAnchorPointList().get(i).getForceOnPoint())
+			+" | " +" | "+Float.toString( anchorPointList.getAnchorPointList().get(i).getBreakingStrength()) + "\n");
 	}
-	public void setAnchor(Anchor anchor) {
-		this.anchor = anchor;
-		claculateResult(anchor);
-	}
+	
 	private  void il8n() {
 		Locale polishLocale = new Locale("pl", "PL");
 		Locale.setDefault(polishLocale);
