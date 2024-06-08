@@ -3,12 +3,12 @@ package pl.edu.pw.fizyka.pojava.wmk;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -67,6 +67,20 @@ public void changeDrawspaceColor() {
 		//n++;
 		tmpAnchorPoint.setParamPanel(paramPanel);
 		tmpAnchorPoint.setBounds(x, y, 16, 16);
+		
+		
+		tmpAnchorPoint.addMouseMotionListener(new MouseAdapter(){
+
+            public void mouseDragged(MouseEvent E)
+            {
+               int X=E.getX()+tmpAnchorPoint.getX();
+               int Y=E.getY()+tmpAnchorPoint.getY();
+               tmpAnchorPoint.setX(X);
+               tmpAnchorPoint.setY(Y);
+               tmpAnchorPoint.setBounds(X,Y,16,16);
+            }
+        });
+		
 		this.add(tmpAnchorPoint);
 		anchorPointList.addAnchorPointToAnchorPointList(tmpAnchorPoint);	
 	}
