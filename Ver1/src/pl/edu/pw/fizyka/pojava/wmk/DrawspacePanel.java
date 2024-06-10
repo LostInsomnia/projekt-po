@@ -90,7 +90,7 @@ public void changeDrawspaceColor() {
 		this.add(anchor.getMasterPoint());
 		revalidate();
 		repaint();
-		resultPanel.setAnchor(anchor);
+		//resultPanel.setAnchor(anchor);
 	}
 
 	public void paint(Graphics g) {

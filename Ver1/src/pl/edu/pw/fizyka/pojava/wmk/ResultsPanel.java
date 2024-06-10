@@ -1,5 +1,7 @@
 package pl.edu.pw.fizyka.pojava.wmk;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,15 +15,23 @@ import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 //Made by: Adam Pempkowiak
 
 public class ResultsPanel extends JPanel{
+	double force;
+	JTextField forceField;
 	JButton calculateResultsButton;
+	ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", new Locale("pl","PL"));
 	LanguageChange languageChange;
 	Anchor anchor;
+	JLabel forceLabel;
+	JTextArea resultsField = new JTextArea();
 	AnchorPointList anchorPointList;
 	double F1, F2;
+	AnchorList anchorList;
 public void setLanguageChange(LanguageChange languageChange) {
 		this.languageChange = languageChange;
 		languageChange.setResultsPanel(this);
@@ -40,45 +50,86 @@ public void changeResultColor() {
 	}
 	public ResultsPanel(AnchorPointList anchorPointList){
 		this.anchorPointList = anchorPointList;
+		this.setLayout(new BorderLayout());
+		forceField = new JTextField(" ");
+		
 		calculateResultsButton = new JButton("calculate");
-		JLabel resultLabel = new JLabel();
-		this.add(resultLabel);
+		JPanel topPanel = new JPanel(new GridLayout(3,1));
+		JPanel bottomPanel = new JPanel();
+		forceLabel = new JLabel(messages.getString("forceLabelMessage"));
+		topPanel.add(forceLabel);
+		topPanel.add(forceField);
+		this.add(bottomPanel, BorderLayout.PAGE_END);
+		this.add(topPanel, BorderLayout.PAGE_START);
+		bottomPanel.add(resultsField);
 		ActionListener resultsButtonListener = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				resultLabel.setText("force on st point if force on masterPoint is 1 kN" + Double.toString(F1)+ "kN");
+				claculateResult();
+				displayResults();
 				
 			}
 		};
 		calculateResultsButton.addActionListener(resultsButtonListener);
 		updateLanguageChoice(new Locale("pl", "PL"));
-		this.add(calculateResultsButton);
+		topPanel.add(calculateResultsButton);
 		il8n();
 	}
 	public void updateLanguageChoice(Locale locale) {
-		ResourceBundle messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
+		messages = ResourceBundle.getBundle("pl/edu/pw/fizyka/pojava/lang/messages", locale);
 		calculateResultsButton.setText(messages.getString("calculateButtonMessage"));
+		forceLabel.setText(messages.getString("forceLabelMessage"));
 	}
 	
-	public void claculateResult(Anchor anchor) {
-		int x1 = anchor.getStAnchorPoint().getX();
-		int y1 = anchor.getStAnchorPoint().getY();
-		int x2 = anchor.getNdAnchorPoint().getX();
-		int y2 = anchor.getNdAnchorPoint().getY();
-		int xc =  anchor.getMasterPoint().getX();
-		int yc =  anchor.getMasterPoint().getY();
-		
-		F1 = (xc-x2)*Math.sqrt((double)(Math.pow(xc, 2)+Math.pow(y1, 2)))/(-x2*y1+xc*(y1+y2));
-		System.out.print(x1+" "+x2+" "+y1+" "+y2+" "+xc+" "+yc+" ");
+	public void claculateResult() {
+		force = Double.parseDouble(forceField.getText());
+		anchorList = AnchorList.getInstance();
+		int size = anchorList.getAnchorList().size();
+		int n=0;
+		int maxDegree=0;
+		if(force >0) {
+			for (int i=0;i<size;i++) {
+				if (anchorList.getAnchorList().get(i).getMasterPoint().getDegree()>= maxDegree) {
+					maxDegree = anchorList.getAnchorList().get(i).getMasterPoint().getDegree();
+					n=i;
+				}
+				
+			}
+			
+				anchorList.getAnchorList().get(n).calculateResults(force);
+				anchorList.getAnchorList().get(n).getMasterPoint().setForceOnPoint((float)force);
+			for (int i=maxDegree-1; i>0;i--) {
+				for (int j=0;j<size;j++) {
+					if(anchorList.getAnchorList().get(j).getMasterPoint().getIsMaster()) {
+						anchorList.getAnchorList().get(j).calculateResults(anchorList.getAnchorList().get(j).getMasterPoint().getForceOnPoint());
+					}
+				}
+			}
+			for (int i=0;i<anchorPointList.getAnchorPointList().size();i++) {
+				anchorPointList.getAnchorPointList().get(i).checkIfPointFailed();
+			}
+			for (int i=0;i<size;i++) {
+				anchorList.getAnchorList().get(i).checkIfAnchorFailed();
+			}
+		}
+		else {
+			forceField.setText("");
+			forceLabel.setText(messages.getString("forceErrorMessage"));
+		}
 	}
-	public Anchor getAnchor() {
-		return anchor;
+	public void displayResults() {
+		resultsField.setText(messages.getString("resultsLabelPoints")+ "\n");
+		for (int i=0; i<anchorPointList.getAnchorPointList().size();i++)
+			resultsField.append(Integer.toString( anchorPointList.getAnchorPointList().get(i).getDegree())+ " | "+Integer.toString( anchorPointList.getAnchorPointList().get(i).getN()+1)+ " | "+Float.toString(anchorPointList.getAnchorPointList().get(i).getForceOnPoint())
+			 +" | "+Float.toString( anchorPointList.getAnchorPointList().get(i).getBreakingStrength()) + " | "+ anchorPointList.getAnchorPointList().get(i).getPointFailed() + "\n");
+		resultsField.append(messages.getString("resultsLabelAnchors")+ "\n");
+		for (int i=0; i<anchorList.getAnchorList().size();i++)
+			resultsField.append(Integer.toString(anchorList.getAnchorList().get(i).getStAnchorPoint().getN()) + ";"+ Integer.toString(anchorList.getAnchorList().get(i).getNdAnchorPoint().getN())+ "|"
+				+ messages.getString( anchorList.getAnchorList().get(i).getAnchorMaterial().name())+ "|"+ Float.toString(anchorList.getAnchorList().get(i).getBrakingStrength())+ "|"
+					+Float.toString(anchorList.getAnchorList().get(i).getForceOnAnchor())+"|"+ anchorList.getAnchorList().get(i).getAnchorFailed()+"\n");
 	}
-	public void setAnchor(Anchor anchor) {
-		this.anchor = anchor;
-		claculateResult(anchor);
-	}
+	
 	private  void il8n() {
 		Locale polishLocale = new Locale("pl", "PL");
 		Locale.setDefault(polishLocale);

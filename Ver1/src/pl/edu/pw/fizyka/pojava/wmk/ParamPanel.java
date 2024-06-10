@@ -2,6 +2,7 @@ package pl.edu.pw.fizyka.pojava.wmk;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.lang.ref.WeakReference;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -22,11 +23,17 @@ public class ParamPanel extends JPanel{
 	LanguageChange languageChange;
 	JSlider slider;
 	JLabel breakingStrength;
+	AnchorPoint anchorPoint = null;
+	public void setAnchorPoint(AnchorPoint anchorPoint) {
+		this.anchorPoint = anchorPoint;
+	}
 	JPanel filler1, filler2;
 	public void setLanguageChange(LanguageChange languageChange) {
 		this.languageChange = languageChange;
 		this.languageChange.setParamPanel(this);
 	}
+	
+	
 	public void displayPointData(float brakingStrengthinkN) {
 		this.removeAll();
 		this.setLayout(new GridLayout(4, 1));
@@ -34,7 +41,7 @@ public class ParamPanel extends JPanel{
 		filler1 = new JPanel();
 		filler2 = new JPanel();
 		breakingStrength = new JLabel("breaking strength in kN", SwingConstants.CENTER);
-		
+	
 		
 		//filler1 = new JPanel();
 		//filler2 = new JPanel();
@@ -53,16 +60,16 @@ public class ParamPanel extends JPanel{
 		slider.setMinorTickSpacing(2);
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
-		
 		ChangeListener listener  = new ChangeListener() {
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
-				
+				 anchorPoint.breakingStrength = (float)slider.getValue();
 			}
 		};
-		
+		slider.addChangeListener(listener);
+
 		this.add(slider);
 		this.add(filler2);
 		this.setBackground(ColorScheme.getColorScheme()[0]);
@@ -114,7 +121,11 @@ public void changeParamColor() {
 			breakingStrength.setText(messages.getString("anchorPointBrakingStrengthMessage"));
 	}
 
-	public ParamPanel(){
+	
+	public ParamPanel() {
+		
+	}
+	public ParamPanel(float brakingstrength){
 		Dimension element = new Dimension(100,25);
 		Dimension spacing = new Dimension(100,50);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS ));

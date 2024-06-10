@@ -164,7 +164,7 @@ public class AddAnchorWindow extends JFrame implements Runnable {
                 public void actionPerformed(ActionEvent e) {
                     if (chosenPoints.size() > 1 && chosenMaterial != null) {
                         drawspace.addAnchor(new Anchor(anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size() - 1)),
-                                anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size() - 2)), chosenMaterial, anchorPointList));
+                                anchorPointList.getAnchorPointList().get(chosenPoints.get(chosenPoints.size() - 2)), chosenMaterial, chosenType, anchorPointList));
                         
                         dispose();
                     } else {

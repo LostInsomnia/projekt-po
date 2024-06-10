@@ -23,16 +23,34 @@ public class AnchorPoint extends JButton {
 	ParamPanel paramPanel;
 	protected int x, y, n;
 	int degree = 0;
-	protected float breakingStrength = 20;		// in kN
+	AnchorPoint an = this;
+	float forceOnPoint=0;
+	public float getForceOnPoint() {
+		return forceOnPoint;
+	}
+
+	public void setForceOnPoint(float forceOnPoint) {
+		this.forceOnPoint = forceOnPoint;
+	}
+
+	float breakingStrength = 20;		// in kN
 	protected Boolean isMaster = false;
+	String pointFailed = "";
+
 	ActionListener listener = new ActionListener() {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//paramPanel.displayPointData(this);
+		paramPanel.setAnchorPoint(an);
 		paramPanel.displayPointData( breakingStrength);
 	}
 	};
-	
+	public void checkIfPointFailed() {
+		if (forceOnPoint>breakingStrength)
+			pointFailed = "+";
+		else 
+			pointFailed = "-";
+	}
 	Color currentColor = ColorScheme.getColorScheme()[3];
 	public void changePointColor(){
 		/*
@@ -51,6 +69,10 @@ public class AnchorPoint extends JButton {
 		this.paramPanel = paramPanel;
 	}
 	
+	public String getPointFailed() {
+		return pointFailed;
+	}
+
 	public AnchorPoint(int x, int y, int n) {
 		this.x =x;
 		this.y =y;
@@ -58,7 +80,8 @@ public class AnchorPoint extends JButton {
 		//setContentAreaFilled(false);  
 		this.addActionListener(listener);
 		this.setMargin(new Insets(0, 0, 0, 0));
-		 
+		//paramPanel = new ParamPanel(breakingStrength);
+		
 		 try {
 			    Image img = ImageIO.read(getClass().getResource("images/anchor_point_icon.png"));
 			    this.setIcon(new ImageIcon(img));
