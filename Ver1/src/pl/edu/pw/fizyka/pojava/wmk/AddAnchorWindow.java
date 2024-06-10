@@ -52,18 +52,20 @@ public class AddAnchorWindow extends JFrame implements Runnable {
     @Override
     public void run() {
         this.setAlwaysOnTop(true);
-        this.setVisible(true);
+        
         this.setSize(480, 360);
         this.setBackground(ColorScheme.getColorScheme()[0]);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLayout(new GridLayout(3, 1));
         topPanel = new TopPanel();
-        this.add(topPanel);
-
-        centerPanel = new CenterPanel();
-        this.add(centerPanel);
         bottomPanel = new BottomPanel();
+        centerPanel = new CenterPanel();
+        
+        this.add(topPanel);        
+        this.add(centerPanel);       
         this.add(bottomPanel);
+        
+        this.setVisible(true);
     }
 
     public class TopPanel extends JPanel {
